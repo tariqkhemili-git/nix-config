@@ -10,7 +10,6 @@
     '';
     interactiveShellInit = ''
       set -g fish_greeting ""
-      fastfetch
       set -g fish_color_command green --bold
       set -g fish_color_keyword magenta
       set -g fish_color_quote yellow

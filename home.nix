@@ -13,6 +13,14 @@
     ./modules/home-modules/qt.nix
     ./modules/home-modules/fonts.nix
     ./modules/home-modules/xdg.nix
+    ./modules/home-modules/programs/fish.nix
+    ./modules/home-modules/programs/git.nix
+    ./modules/home-modules/programs/foot.nix
+    ./modules/home-modules/programs/waybar.nix
+    ./modules/home-modules/programs/starship.nix
+    ./modules/home-modules/programs/zoxide.nix
+    ./modules/home-modules/programs/fastfetch.nix
+    ./modules/home-modules/programs/wlsunset.nix
     ./modules/hyprland/hyprland.nix
     ./modules/hyprland/general.nix
     ./modules/hyprland/keybindings.nix
@@ -21,14 +29,6 @@
     ./modules/hyprland/env.nix
     ./modules/hyprland/execs.nix
     ./modules/hyprland/windowrules.nix
-    ./modules/programs/fish.nix
-    ./modules/programs/git.nix
-    ./modules/programs/foot.nix
-    ./modules/programs/waybar.nix
-    ./modules/programs/starship.nix
-    ./modules/programs/zoxide.nix
-    ./modules/programs/fastfetch.nix
-    ./modules/programs/wlsunset.nix
   ];
 
   home = {
