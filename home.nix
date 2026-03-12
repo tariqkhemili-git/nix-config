@@ -93,6 +93,7 @@
       showtime
       libreoffice
       proton-authenticator
+      obsidian
     ];
     pointerCursor = {
       gtk.enable = true;

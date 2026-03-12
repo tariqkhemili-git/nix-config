@@ -27,7 +27,7 @@
       m = "micro";
       cd = "z";
       conf = "cd ~/.nix";
-      ".." = "cd ..";
+      ".." = "z ..";
       # Rsync file operations (Optimised for local NVMe performance)
       copy = "rsync -aWq";
       move = "rsync -aWq --remove-source-files";
@@ -35,7 +35,7 @@
     };
 
     shellAliases = {
-      fish-edit = "micro /home/light/.nix/modules/programs/fish.nix";
+      fish-edit = "micro /home/light/.nix/modules/home-modules/programs/fish.nix";
       nix-tree = "tree -J /home/light/.nix > '/home/light/Documents/System Info/nix-tree.json'";
       e = "micro";
       cat = "bat";
