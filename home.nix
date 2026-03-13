@@ -1,7 +1,6 @@
 {
   pkgs,
   zen-browser,
-  system,
   config,
   ...
 }:
@@ -72,7 +71,7 @@
       brightnessctl
       wlsunset
       mpd
-      zen-browser.packages."${system}".default
+      zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
       kdePackages.dolphin
       kdePackages.qtsvg
       kdePackages.kio-extras
