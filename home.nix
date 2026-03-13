@@ -92,6 +92,7 @@
       libreoffice
       proton-authenticator
       obsidian
+      ollama
     ];
     pointerCursor = {
       gtk.enable = true;

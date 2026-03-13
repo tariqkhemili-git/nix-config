@@ -98,5 +98,9 @@
       ];
       update.auto.enable = true;
     };
+    ollama = {
+      enable = true;
+      acceleration = "cuda";
+    };
   };
 }
