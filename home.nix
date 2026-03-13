@@ -21,6 +21,7 @@
     ./modules/home-modules/programs/zoxide.nix
     ./modules/home-modules/programs/fastfetch.nix
     ./modules/home-modules/programs/wlsunset.nix
+    ./modules/home-modules/programs/ocr.nix
     ./modules/home-modules/hyprland/hyprland.nix
     ./modules/home-modules/hyprland/general.nix
     ./modules/home-modules/hyprland/keybindings.nix
@@ -93,6 +94,7 @@
       proton-authenticator
       obsidian
       ollama
+      jq
     ];
     pointerCursor = {
       gtk.enable = true;

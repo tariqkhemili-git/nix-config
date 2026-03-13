@@ -61,6 +61,9 @@
       "$mainMod, mouse_up, workspace, e-1"
       "$mainMod SHIFT, C, exec, hyprpicker -a"
       "$mainMod SHIFT, S, exec, hyprshot -z -m region -o $SCREENSHOTS"
+
+      # OCR Screenshot
+      "$mainMod SHIFT, O, exec, hypr-ocr"
     ];
 
     bindm = [
