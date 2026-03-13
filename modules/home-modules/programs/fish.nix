@@ -19,9 +19,9 @@
 
     shellAbbrs = {
       upd = "nh os switch -u ~/.nix";
-      gitupd = ''z ~/.nix && git add . && git commit -m " " && git push -u origin main & nh os switch -u ~/.nix'';
+      gitupd = ''z ~/.nix && git add . && git commit -m " " && git push -u origin main && nh os switch -u ~/.nix'';
       swi = "nh os switch ~/.nix";
-      gitswi = ''z ~/.nix && git add . && git commit -m " " && git push -u origin main & nh os switch ~/.nix'';
+      gitswi = ''z ~/.nix && git add . && git commit -m " " && git push -u origin main && nh os switch ~/.nix'';
       test = "nh os test ~/.nix";
       clean = "nh clean all";
       nixconf = "z ~/.nix && micro";
