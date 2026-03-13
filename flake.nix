@@ -25,7 +25,7 @@
       };
     };
     nix-flatpak = {
-      url = "github:gvolpe/nix-flatpak";
+      url = "github:gmodena/nix-flatpak";
     };
   };
 
