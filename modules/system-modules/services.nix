@@ -91,7 +91,10 @@
     flatpak = {
       enable = true;
       packages = [
-        "org.vinegarhq.Sober"
+        {
+          appId = "org.vinegarhq.Sober";
+          origin = "flathub";
+        }
       ];
       update.auto.enable = true;
     };
