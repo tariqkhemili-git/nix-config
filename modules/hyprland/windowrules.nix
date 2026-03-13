@@ -1,4 +1,4 @@
-{ ... }:
+#{ ... }:
 
 {
   wayland.windowManager.hyprland.settings = {
@@ -13,7 +13,7 @@
       "match:class ^(foot)$, opacity 0.80 0.80"
       "match:class ^(pavucontrol)$, float on"
       "match:class ^(bluetuith)$, float on"
-      "match:class equibop, workspace equibop silent"
+      "match:class equibop, workspace special:equibop silent"
     ];
   };
 }
