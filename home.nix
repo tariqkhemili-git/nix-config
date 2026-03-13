@@ -21,14 +21,15 @@
     ./modules/home-modules/programs/zoxide.nix
     ./modules/home-modules/programs/fastfetch.nix
     ./modules/home-modules/programs/wlsunset.nix
-    ./modules/hyprland/hyprland.nix
-    ./modules/hyprland/general.nix
-    ./modules/hyprland/keybindings.nix
-    ./modules/hyprland/monitors.nix
-    ./modules/hyprland/workspaces.nix
-    ./modules/hyprland/env.nix
-    ./modules/hyprland/execs.nix
-    ./modules/hyprland/windowrules.nix
+    ./modules/home-modules/programs/hyprpicker.nix
+    ./modules/home-modules/hyprland/hyprland.nix
+    ./modules/home-modules/hyprland/general.nix
+    ./modules/home-modules/hyprland/keybindings.nix
+    ./modules/home-modules/hyprland/monitors.nix
+    ./modules/home-modules/hyprland/workspaces.nix
+    ./modules/home-modules/hyprland/env.nix
+    ./modules/home-modules/hyprland/execs.nix
+    ./modules/home-modules/hyprland/windowrules.nix
   ];
 
   home = {

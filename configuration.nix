@@ -13,6 +13,7 @@
     ./modules/system-modules/nix.nix
     ./modules/system-modules/nixpkgs.nix
     ./modules/system-modules/programs.nix
+    ./modules/system-modules/security.nix
     ./modules/system-modules/services.nix
     ./modules/system-modules/system.nix
     ./modules/system-modules/time.nix
