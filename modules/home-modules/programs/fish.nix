@@ -22,11 +22,11 @@
       swi = "nh os switch ~/.nix";
       test = "nh os test ~/.nix";
       clean = "nh clean all";
-      nixconf = "cd ~/.nix && micro";
+      nixconf = "z ~/.nix && micro";
       s = "sudo";
       m = "micro";
       cd = "z";
-      conf = "cd ~/.nix";
+      conf = "z ~/.nix";
       ".." = "z ..";
       # Rsync file operations (Optimised for local NVMe performance)
       copy = "rsync -aWq";
@@ -43,7 +43,6 @@
       ll = "eza -lh --icons --grid --group-directories-first --sort=modified";
       # High-performance, multithreaded compression (silent)
       compress = "tar --use-compress-program='zstd -T0 -q' -cf";
-
       # Robust, format-agnostic, and silent extraction
       extract = "tar -xf";
     };
