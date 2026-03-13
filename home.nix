@@ -91,7 +91,6 @@
       nomacs
       showtime
       libreoffice
-      proton-authenticator
       obsidian
       ollama
       jq
