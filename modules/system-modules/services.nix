@@ -90,6 +90,10 @@
     };
     flatpak = {
       enable = true;
+      packages = [
+        "flathub:org.vinegarhq.Sober"
+      ];
+      update.auto.enable = true;
     };
   };
 }

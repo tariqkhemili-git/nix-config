@@ -24,6 +24,9 @@
         };
       };
     };
+    nix-flatpak = {
+      url = "github:gvolpe/nix-flatpak";
+    };
   };
 
   outputs =
