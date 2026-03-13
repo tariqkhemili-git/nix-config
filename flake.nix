@@ -30,7 +30,7 @@
   };
 
   outputs =
-    { nixpkgs, ... }@inputs:
+    { nixpkgs, nix-flatpak, ... }@inputs:
     let
       system = "x86_64-linux";
     in
@@ -41,6 +41,7 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./configuration.nix
+            nix-flatpak.nixosModules.nix-flatpak # 2. Add the module here
           ];
         };
       };
