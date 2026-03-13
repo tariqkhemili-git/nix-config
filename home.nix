@@ -94,6 +94,7 @@
       libreoffice
       proton-authenticator
       obsidian
+      atkinson-hyperlegible-next
     ];
     pointerCursor = {
       gtk.enable = true;
