@@ -63,7 +63,7 @@
       "$mainMod SHIFT, S, exec, hyprshot -z -m region -o $SCREENSHOTS"
 
       # OCR Screenshot
-      "$mainMod SHIFT, O, exec, hypr-ocr"
+      "$mainMod SHIFT, O, exec, fish -c hypr-ocr"
 
       # Clipboard
       "$mainMod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
