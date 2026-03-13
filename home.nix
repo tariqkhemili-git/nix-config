@@ -21,7 +21,6 @@
     ./modules/home-modules/programs/zoxide.nix
     ./modules/home-modules/programs/fastfetch.nix
     ./modules/home-modules/programs/wlsunset.nix
-    ./modules/home-modules/programs/hyprpicker.nix
     ./modules/home-modules/hyprland/hyprland.nix
     ./modules/home-modules/hyprland/general.nix
     ./modules/home-modules/hyprland/keybindings.nix
