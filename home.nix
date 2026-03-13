@@ -93,6 +93,7 @@
       obsidian
       ollama
       jq
+      vscode
     ];
     pointerCursor = {
       gtk.enable = true;
