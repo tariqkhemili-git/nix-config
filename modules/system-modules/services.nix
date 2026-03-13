@@ -91,7 +91,7 @@
     flatpak = {
       enable = true;
       packages = [
-        "flathub:org.vinegarhq.Sober"
+        "org.vinegarhq.Sober"
       ];
       update.auto.enable = true;
     };
