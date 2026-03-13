@@ -88,5 +88,8 @@
     getty = {
       autologinUser = "light";
     };
+    flatpak = {
+      enable = true;
+    };
   };
 }
