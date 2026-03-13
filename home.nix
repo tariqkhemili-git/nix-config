@@ -71,8 +71,6 @@
       brightnessctl
       wlsunset
       mpd
-      nerd-fonts.jetbrains-mono
-      font-awesome
       zen-browser.packages."${system}".default
       kdePackages.dolphin
       kdePackages.qtsvg
@@ -94,7 +92,6 @@
       libreoffice
       proton-authenticator
       obsidian
-      atkinson-hyperlegible-next
     ];
     pointerCursor = {
       gtk.enable = true;

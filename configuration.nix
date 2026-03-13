@@ -18,6 +18,7 @@
     ./modules/system-modules/system.nix
     ./modules/system-modules/time.nix
     ./modules/system-modules/users.nix
+    ./modules/system-modules/fonts.nix
 
     # Home Manager Integration
     inputs.home-manager.nixosModules.home-manager
