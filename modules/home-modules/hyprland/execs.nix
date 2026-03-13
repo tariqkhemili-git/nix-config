@@ -13,6 +13,9 @@
       "swaync"
       # "nm-applet --indicator" # Fixed the line break here
 
+      "wl-paste --type text --watch cliphist store"
+      "wl-paste --type image --watch cliphist store"
+
       # --- Wallpaper Engine ---
       "linux-wallpaperengine --silent --scaling fill --fps 60 --screen-root DP-3 --bg 3341326865 --screen-root HDMI-A-1 --bg 3449595825 --set-property newproperty3=\"0.52 0.69 0.83\""
 

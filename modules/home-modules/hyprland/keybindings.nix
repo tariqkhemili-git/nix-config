@@ -64,6 +64,9 @@
 
       # OCR Screenshot
       "$mainMod SHIFT, O, exec, hypr-ocr"
+
+      # Clipboard
+      "$mainMod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
     ];
 
     bindm = [
