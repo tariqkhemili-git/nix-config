@@ -105,5 +105,15 @@
         "glm-ocr:bf16"
       ];
     };
+    open-webui = {
+      enable = true;
+      port = 8080;
+      # Ensure it talks to your local Ollama instance
+      environment = {
+        OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
+        # Disables the "Check for Updates" bubble for a cleaner, private UI
+        WEBUI_AUTH = "true";
+      };
+    };
   };
 }
