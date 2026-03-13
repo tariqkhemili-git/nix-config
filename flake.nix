@@ -31,13 +31,9 @@
 
   outputs =
     { nixpkgs, nix-flatpak, ... }@inputs:
-    let
-      system = "x86_64-linux";
-    in
     {
       nixosConfigurations = {
         nixterminator = nixpkgs.lib.nixosSystem {
-          inherit system;
           specialArgs = { inherit inputs; };
           modules = [
             ./configuration.nix
