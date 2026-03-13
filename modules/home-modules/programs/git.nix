@@ -27,15 +27,14 @@
       "*.secret" # Your custom secret pattern
     ];
 
-    # Enhanced diffing
-    delta = {
-      enable = true;
-      options = {
-        navigate = true;
-        line-numbers = true;
-        side-by-side = true;
-        syntax-theme = "Nord"; # Matches a dark, clean aesthetic
-      };
+  };
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true; # Silences the deprecation warning
+    options = {
+      # Move your previous programs.git.delta.options here
+      line-numbers = true;
+      side-by-side = true;
     };
   };
 }

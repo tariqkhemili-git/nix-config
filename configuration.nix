@@ -32,7 +32,7 @@
     };
     extraSpecialArgs = {
       inherit (inputs) zen-browser;
-      system = "x86_64-linux";
+      stdenv.hostPlatform.system = "x86_64-linux";
     };
   };
 }
