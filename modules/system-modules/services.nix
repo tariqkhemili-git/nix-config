@@ -101,6 +101,9 @@
     ollama = {
       enable = true;
       package = pkgs.ollama-cuda;
+      loadModels = [
+        "glm-ocr:bf16"
+      ];
     };
   };
 }
