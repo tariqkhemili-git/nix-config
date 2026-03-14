@@ -27,6 +27,8 @@
     ./modules/home-modules/hyprland/workspaces.nix
     ./modules/home-modules/hyprland/execs.nix
     ./modules/home-modules/hyprland/windowrules.nix
+    ./modules/home-modules/functions/hypr-ocr.nix
+    ./modules/home-modules/functions/system-report.nix
   ];
 
   home = {
@@ -143,14 +145,6 @@
       kdePackages.kdegraphics-thumbnailers # Image/Video thumbnails
       kdePackages.kio-fuse # Mounting support for Dolphin
       kdePackages.dolphin-plugins # Git integration for Dolphin
-
-      # --- Custom Scripts ---
-      (pkgs.writeShellScriptBin "system-report" (
-        builtins.readFile ./modules/home-modules/functions/system-report.sh
-      )) # Custom hardware report script
-      (pkgs.writeShellScriptBin "hypr-ocr" (
-        builtins.readFile ./modules/home-modules/functions/hypr-ocr.sh
-      )) # Custom OCR script for Hyprland
     ];
     pointerCursor = {
       gtk.enable = true;
