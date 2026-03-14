@@ -121,10 +121,10 @@
 
       # --- Custom Scripts ---
       (pkgs.writeShellScriptBin "system-report" (
-        builtins.readFile ./modules/home-modules/programs/functions/system-report.sh
+        builtins.readFile ./modules/home-modules/functions/system-report.sh
       )) # Custom hardware report script
       (pkgs.writeShellScriptBin "hypr-ocr" (
-        builtins.readFile ./modules/home-modules/programs/functions/hypr-ocr.sh
+        builtins.readFile ./modules/home-modules/functions/hypr-ocr.sh
       )) # Custom OCR script for Hyprland
     ];
     pointerCursor = {
