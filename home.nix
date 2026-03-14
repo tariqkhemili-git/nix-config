@@ -7,28 +7,32 @@
 
 {
   imports = [
-    ./modules/home-modules/dconf.nix
-    ./modules/home-modules/gtk.nix
-    ./modules/home-modules/qt.nix
-    ./modules/home-modules/fonts.nix
-    ./modules/home-modules/xdg.nix
-    ./modules/home-modules/programs/fish.nix
-    ./modules/home-modules/programs/git.nix
-    ./modules/home-modules/programs/foot.nix
-    ./modules/home-modules/programs/waybar.nix
-    ./modules/home-modules/programs/starship.nix
-    ./modules/home-modules/programs/zoxide.nix
-    ./modules/home-modules/programs/fastfetch.nix
-    ./modules/home-modules/programs/wlsunset.nix
-    ./modules/home-modules/hyprland/hyprland.nix
-    ./modules/home-modules/hyprland/general.nix
-    ./modules/home-modules/hyprland/keybindings.nix
-    ./modules/home-modules/hyprland/monitors.nix
-    ./modules/home-modules/hyprland/workspaces.nix
-    ./modules/home-modules/hyprland/execs.nix
-    ./modules/home-modules/hyprland/windowrules.nix
-    ./modules/home-modules/functions/hypr-ocr.nix
-    ./modules/home-modules/functions/system-report.nix
+    ./home-modules/xdg.nix
+
+    ./home-modules/theming/dconf.nix
+    ./home-modules/theming/gtk.nix
+    ./home-modules/theming/qt.nix
+    ./home-modules/theming/fonts.nix
+
+    ./home-modules/programs/fish.nix
+    ./home-modules/programs/git.nix
+    ./home-modules/programs/foot.nix
+    ./home-modules/programs/waybar.nix
+    ./home-modules/programs/starship.nix
+    ./home-modules/programs/zoxide.nix
+    ./home-modules/programs/fastfetch.nix
+    ./home-modules/programs/wlsunset.nix
+
+    ./home-modules/hyprland/hyprland.nix
+    ./home-modules/hyprland/general.nix
+    ./home-modules/hyprland/keybindings.nix
+    ./home-modules/hyprland/monitors.nix
+    ./home-modules/hyprland/workspaces.nix
+    ./home-modules/hyprland/execs.nix
+    ./home-modules/hyprland/windowrules.nix
+
+    ./home-modules/functions/hypr-ocr.nix
+    ./home-modules/functions/system-report.nix
   ];
 
   home = {

@@ -3,22 +3,22 @@
 {
   imports = [
     # Explicit System Imports
-    ./modules/system-modules/boot.nix
-    ./modules/system-modules/console.nix
-    ./modules/system-modules/environment.nix
-    ./modules/system-modules/fileSystems.nix
-    ./modules/system-modules/hardware.nix
-    ./modules/system-modules/i18n.nix
-    ./modules/system-modules/networking.nix
-    ./modules/system-modules/nix.nix
-    ./modules/system-modules/nixpkgs.nix
-    ./modules/system-modules/programs.nix
-    ./modules/system-modules/security.nix
-    ./modules/system-modules/services.nix
-    ./modules/system-modules/system.nix
-    ./modules/system-modules/time.nix
-    ./modules/system-modules/users.nix
-    ./modules/system-modules/fonts.nix
+    ./system-modules/boot.nix
+    ./system-modules/console.nix
+    ./system-modules/environment.nix
+    ./system-modules/fileSystems.nix
+    ./system-modules/hardware.nix
+    ./system-modules/i18n.nix
+    ./system-modules/networking.nix
+    ./system-modules/nix.nix
+    ./system-modules/nixpkgs.nix
+    ./system-modules/programs.nix
+    ./system-modules/security.nix
+    ./system-modules/services.nix
+    ./system-modules/system.nix
+    ./system-modules/time.nix
+    ./system-modules/users.nix
+    ./system-modules/fonts.nix
 
     # Home Manager Integration
     inputs.home-manager.nixosModules.home-manager
