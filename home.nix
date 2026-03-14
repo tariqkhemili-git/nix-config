@@ -137,6 +137,7 @@
       steam # Gaming platform
       linux-wallpaperengine # Animated wallpapers
       mpd # Music Player Daemon
+      gapless # Music Player client
 
       # --- Theming & Frameworks ---
       gnome-themes-extra # GTK themes

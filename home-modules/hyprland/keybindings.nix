@@ -56,6 +56,10 @@
       "$mainMod, D, togglespecialworkspace, equibop"
       "$mainMod ALT, D, movetoworkspace, special:equibop"
 
+      # Gapless Scratchpad
+      "$mainMod, D, togglespecialworkspace, gapless"
+      "$mainMod ALT, D, movetoworkspace, special:gapless"
+
       # Scroll workspaces
       "$mainMod, mouse_down, workspace, e+1"
       "$mainMod, mouse_up, workspace, e-1"
