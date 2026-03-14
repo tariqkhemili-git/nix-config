@@ -25,7 +25,6 @@
     ./modules/home-modules/hyprland/keybindings.nix
     ./modules/home-modules/hyprland/monitors.nix
     ./modules/home-modules/hyprland/workspaces.nix
-    ./modules/home-modules/hyprland/env.nix
     ./modules/home-modules/hyprland/execs.nix
     ./modules/home-modules/hyprland/windowrules.nix
   ];
@@ -39,6 +38,31 @@
       SCREENSHOTS = "${config.home.homeDirectory}/Pictures/Screenshots";
       PROJECTS = "${config.home.homeDirectory}/Documents/Projects";
       WALLPAPERS = "${config.home.homeDirectory}/Pictures/Wallpapers";
+
+      # Cursor Settings
+      XCURSOR_SIZE = "24";
+      XCURSOR_THEME = "Bibata-Modern-Classic";
+      HYPRCURSOR_SIZE = "24";
+
+      # Nvidia Specific Compatibility
+      LIBVA_DRIVER_NAME = "nvidia";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      GBM_BACKEND = "nvidia-drm";
+      NVD_BACKEND = "direct";
+
+      # Toolkits & Wayland Support
+      NIXOS_OZONE_WL = "1";
+      ELECTRON_OZONE_PLATFORM_HINT = "auto";
+      QT_QPA_PLATFORM = "wayland;xcb";
+      SDL_VIDEODRIVER = "wayland";
+      CLUTTER_BACKEND = "wayland";
+      GDK_BACKEND = "wayland,x11";
+
+      # XDG & Screenshare Fixes
+      XDG_CURRENT_DESKTOP = "Hyprland";
+      XDG_SESSION_TYPE = "wayland";
+      XDG_SESSION_DESKTOP = "Hyprland";
+      XDG_DESKTOP_PORTAL_HYPRLAND_FORCE_SHM = "1"; # Nuclear fix for EIO error
     };
     packages = with pkgs; [
       # --- Terminal & Core Utilities ---
