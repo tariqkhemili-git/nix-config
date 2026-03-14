@@ -14,7 +14,7 @@
       "match:class pavucontrol, float on"
       "match:class bluetuith, float on"
       "match:class equibop, workspace special:equibop silent"
-      "match:class gapless, workspace special:gapless silent"
+      "match:class com.github.neithern.g4music, workspace special:gapless silent"
     ];
   };
 }
