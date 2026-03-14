@@ -77,6 +77,7 @@
       rsync # High-performance file transfer
       ffmpeg # Audio codecs
       yt-dlp # Downloader
+      lazygit # Git TUI
 
       # --- Nix Development & Maintenance ---
       nixd # Nix Language Server
