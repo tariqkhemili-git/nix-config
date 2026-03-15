@@ -30,17 +30,11 @@
       cd = "z";
       conf = "z ~/.nix";
       ".." = "z ..";
-      # Standard Parallel Sync (Copy)
-      copy = "fpsync -n 20 -o '-aWq'";
-      # Parallel Move (Delete source after successful transfer)
-      move = "fpsync -n 20 -o '-aWq --remove-source-files'";
-      # Parallel Merge (Only copy newer files)
-      merge = "fpsync -n 20 -o '-aWqu'";
       dl-sc = "yt-dlp --config-location ~/.config/yt-dlp/soundcloud.conf";
     };
 
     shellAliases = {
-      fish-edit = "micro /home/light/.nix/modules/home-modules/programs/fish.nix";
+      fish-edit = "micro /home/light/.nix/home-modules/programs/fish.nix";
       nix-tree = "tree -J /home/light/.nix > '/home/light/Documents/System Info/nix-tree.json'";
       e = "micro";
       cat = "bat";

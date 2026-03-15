@@ -34,6 +34,7 @@
     ./home-modules/functions/hypr-ocr.nix
     ./home-modules/functions/system-report.nix
     ./home-modules/functions/sc-sync-all.nix
+    ./home-modules/functions/cmm.nix
   ];
 
   home = {
