@@ -1,43 +1,129 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    # pcopy: General purpose high-speed copy
+    # 1. pcopy: Robust multi-threaded directory copy
     (writeShellScriptBin "pcopy" ''
-      SRC=$(${coreutils}/bin/realpath "$1")
-      DST=$(${coreutils}/bin/realpath "$2")
-      mkdir -p "$DST"
+      # Strict mode: fail on errors, unbound variables, or pipe failures
+      set -euo pipefail
 
-      # Optimization: Using 'cp' with --archive and --fsync
-      # Using 24 workers to match physical cores on i9-14900K
-      # -f 1000: Groups 1000 files per job to reduce process spawning overhead
-      ${fpart}/bin/fpsync -n 24 -f 1000 -m cp -o "--archive --fsync" "$SRC/" "$DST/"
-    '')
-
-    # pmove: General purpose high-speed move
-    (writeShellScriptBin "pmove" ''
-      SRC=$(${coreutils}/bin/realpath "$1")
-      DST=$(${coreutils}/bin/realpath "$2")
-      mkdir -p "$DST"
-
-      # -W: Whole files (bypasses delta-xfer logic, faster for local)
-      # -S: Efficiently handles sparse files (common in VM images/databases)
-      ${fpart}/bin/fpsync -n 24 -f 1000 -o "-lptgoDWSq --remove-source-files" "$SRC/" "$DST/"
-
-      if [ $? -eq 0 ]; then
-        find "$SRC" -type d -empty -delete
+      if [ "$#" -lt 2 ]; then
+        echo "Usage: pcopy <source_directory> <destination_directory>"
+        exit 1
       fi
+
+      # -m ensures realpath works even if the destination doesn't exist yet
+      SRC=$(${coreutils}/bin/realpath -m "$1")
+      DST=$(${coreutils}/bin/realpath -m "$2")
+
+      if [ ! -d "$SRC" ]; then
+        echo "Error: Source '$SRC' is not a directory or does not exist."
+        exit 1
+      fi
+
+      # Prevent recursive explosions (copying a folder into itself)
+      case "$DST/" in
+        "$SRC/"*)
+          echo "Error: Destination cannot be a subdirectory of the source."
+          exit 1
+          ;;
+      esac
+
+      ${coreutils}/bin/mkdir -p "$DST"
+
+      START=$SECONDS
+      echo "🚀 Parallel Copy: $SRC -> $DST"
+
+      # Temporarily disable strict exit on failure to capture fpsync's exit code gracefully
+      set +e
+      ${fpart}/bin/fpsync -n 24 -f 1000 -o "-lptgoDWq --inplace" "$SRC/" "$DST/"
+      EXIT_CODE=$?
+      set -e
+
+      echo "⏱️ Completed in $((SECONDS - START)) seconds."
+      exit $EXIT_CODE
     '')
 
-    # pmerge: General purpose high-speed merge/sync
-    (writeShellScriptBin "pmerge" ''
-      SRC=$(${coreutils}/bin/realpath "$1")
-      DST=$(${coreutils}/bin/realpath "$2")
-      mkdir -p "$DST"
+    # 2. pmove: Robust multi-threaded directory move
+    (writeShellScriptBin "pmove" ''
+      set -euo pipefail
 
-      # -u: Update (skip files that are newer on receiver)
-      # --inplace: Writes directly to the file instead of creating a temp copy
-      # (Massively reduces I/O overhead on NVMe)
+      if [ "$#" -lt 2 ]; then
+        echo "Usage: pmove <source_directory> <destination_directory>"
+        exit 1
+      fi
+
+      SRC=$(${coreutils}/bin/realpath -m "$1")
+      DST=$(${coreutils}/bin/realpath -m "$2")
+
+      if [ ! -d "$SRC" ]; then
+        echo "Error: Source '$SRC' is not a directory."
+        exit 1
+      fi
+
+      case "$DST/" in
+        "$SRC/"*)
+          echo "Error: Destination cannot be a subdirectory of the source."
+          exit 1
+          ;;
+      esac
+
+      ${coreutils}/bin/mkdir -p "$DST"
+
+      START=$SECONDS
+      echo "🚚 Parallel Move: $SRC -> $DST"
+
+      set +e
+      ${fpart}/bin/fpsync -n 24 -f 1000 -o "-lptgoDWq --inplace --remove-source-files" "$SRC/" "$DST/"
+      EXIT_CODE=$?
+      set -e
+
+      # Safely clean up empty directories only if the transfer was 100% successful
+      if [ $EXIT_CODE -eq 0 ]; then
+        ${findutils}/bin/find "$SRC" -type d -empty -delete
+      else
+        echo "⚠️ Move completed with errors. Source directories were not fully cleaned up."
+      fi
+
+      echo "⏱️ Completed in $((SECONDS - START)) seconds."
+      exit $EXIT_CODE
+    '')
+
+    # 3. pmerge: Robust multi-threaded directory sync
+    (writeShellScriptBin "pmerge" ''
+      set -euo pipefail
+
+      if [ "$#" -lt 2 ]; then
+        echo "Usage: pmerge <source_directory> <destination_directory>"
+        exit 1
+      fi
+
+      SRC=$(${coreutils}/bin/realpath -m "$1")
+      DST=$(${coreutils}/bin/realpath -m "$2")
+
+      if [ ! -d "$SRC" ]; then
+        echo "Error: Source '$SRC' is not a directory."
+        exit 1
+      fi
+
+      case "$DST/" in
+        "$SRC/"*)
+          echo "Error: Destination cannot be a subdirectory of the source."
+          exit 1
+          ;;
+      esac
+
+      ${coreutils}/bin/mkdir -p "$DST"
+
+      START=$SECONDS
+      echo "🔄 Parallel Merge: $SRC -> $DST"
+
+      set +e
       ${fpart}/bin/fpsync -n 24 -f 1000 -o "-lptgoDWSqu --inplace" "$SRC/" "$DST/"
+      EXIT_CODE=$?
+      set -e
+
+      echo "⏱️ Completed in $((SECONDS - START)) seconds."
+      exit $EXIT_CODE
     '')
   ];
 }
