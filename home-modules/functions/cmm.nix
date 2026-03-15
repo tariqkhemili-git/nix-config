@@ -13,14 +13,12 @@
         exit 1
       fi
 
-      # The last argument is always the destination
       DST_RAW="''${@: -1}"
       DST=$(${coreutils}/bin/realpath -m "$DST_RAW")
 
       DST_EXISTS=false
       if [ -e "$DST_RAW" ] || [ -d "$DST_RAW" ]; then DST_EXISTS=true; fi
 
-      # All arguments except the last one are sources
       SOURCES=("''${@:1:$#-1}")
       NUM_SOURCES=''${#SOURCES[@]}
 
@@ -57,7 +55,7 @@
       done
     '')
 
-    # 2. pmove: Multi-threaded move with wildcard support
+    # 2. pmove: Transactional multi-threaded move (Copy all, then delete source)
     (writeShellScriptBin "pmove" ''
       set -euo pipefail
       trap 'echo -e "\n⚠️ Operation cancelled by user."; exit 1' INT TERM
@@ -76,7 +74,7 @@
       SOURCES=("''${@:1:$#-1}")
       NUM_SOURCES=''${#SOURCES[@]}
 
-      echo "🚚 Parallel Move: Processing $NUM_SOURCES item(s) to $DST_RAW"
+      echo "🚚 Parallel Move (Transactional): Processing $NUM_SOURCES item(s) to $DST_RAW"
 
       for SRC_RAW in "''${SOURCES[@]}"; do
         SRC=$(${coreutils}/bin/realpath -m "$SRC_RAW")
@@ -92,21 +90,36 @@
 
         if [ -d "$SRC" ]; then
           ${coreutils}/bin/mkdir -p "$TARGET_DIR"
+          
+          # Perform the full parallel copy without deleting anything
           set +e
-          ${fpart}/bin/fpsync -n 20 -T ${rsync}/bin/rsync -o "-lptgoDWq --remove-source-files" "$SRC/" "$TARGET_DIR/"
+          ${fpart}/bin/fpsync -n 20 -T ${rsync}/bin/rsync -o "-lptgoDWq" "$SRC/" "$TARGET_DIR/"
           EXIT_CODE=$?
           set -e
           
+          # Only if the copy was 100% successful, wipe the source
           if [ $EXIT_CODE -eq 0 ]; then
-            ${findutils}/bin/find "$SRC" -type d -empty -delete
+            ${coreutils}/bin/rm -rf "$SRC"
+          else
+            echo "⚠️ Move interrupted or failed for $BASENAME. Source files kept intact."
           fi
+
         elif [ -f "$SRC" ]; then
+          set +e
           if [ "$NUM_SOURCES" -eq 1 ] && [ "$DST_EXISTS" = false ]; then
             ${coreutils}/bin/mkdir -p "$(${coreutils}/bin/dirname "$DST")"
-            ${rsync}/bin/rsync -lptgoDWq --remove-source-files "$SRC" "$DST"
+            ${rsync}/bin/rsync -lptgoDWq "$SRC" "$DST"
           else
             ${coreutils}/bin/mkdir -p "$DST"
-            ${rsync}/bin/rsync -lptgoDWq --remove-source-files "$SRC" "$DST/"
+            ${rsync}/bin/rsync -lptgoDWq "$SRC" "$DST/"
+          fi
+          EXIT_CODE=$?
+          set -e
+
+          if [ $EXIT_CODE -eq 0 ]; then
+            ${coreutils}/bin/rm -f "$SRC"
+          else
+            echo "⚠️ Move interrupted or failed for $BASENAME. Source file kept intact."
           fi
         else
           echo "⚠️ Skipping $SRC_RAW: Not a standard file or directory."
