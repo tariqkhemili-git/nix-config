@@ -85,6 +85,7 @@
       ffmpeg # Audio codecs
       yt-dlp # Downloader
       lazygit # Git TUI
+      gocryptfs # Encrypted filesystems
 
       # --- Nix Development & Maintenance ---
       nixd # Nix Language Server
