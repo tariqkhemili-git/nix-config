@@ -44,6 +44,8 @@
       compress = "tar --use-compress-program='zstd -T0 -q' -cf";
       # Robust, format-agnostic, and silent extraction
       extract = "tar -xf";
+      unlock-vault = "gocryptfs ~/Documents/.vault_cipher ~/Documents/Vault";
+      lock-vault = "fusermount -u ~/Documents/Vault";
     };
   };
 }
