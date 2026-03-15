@@ -1,17 +1,19 @@
 { pkgs, ... }:
+
 {
   home.packages = with pkgs; [
+
     # 1. pcopy: Robust multi-threaded directory copy
     (writeShellScriptBin "pcopy" ''
-      # Strict mode: fail on errors, unbound variables, or pipe failures
       set -euo pipefail
+      trap 'echo -e "\n⚠️ Operation cancelled by user."; exit 1' INT TERM
 
       if [ "$#" -lt 2 ]; then
         echo "Usage: pcopy <source_directory> <destination_directory>"
+        echo "Note: This copies the *contents* of the source into the destination."
         exit 1
       fi
 
-      # -m ensures realpath works even if the destination doesn't exist yet
       SRC=$(${coreutils}/bin/realpath -m "$1")
       DST=$(${coreutils}/bin/realpath -m "$2")
 
@@ -20,7 +22,6 @@
         exit 1
       fi
 
-      # Prevent recursive explosions (copying a folder into itself)
       case "$DST/" in
         "$SRC/"*)
           echo "Error: Destination cannot be a subdirectory of the source."
@@ -33,9 +34,8 @@
       START=$SECONDS
       echo "🚀 Parallel Copy: $SRC -> $DST"
 
-      # Temporarily disable strict exit on failure to capture fpsync's exit code gracefully
       set +e
-      ${fpart}/bin/fpsync -n 24 -f 1000 -o "-lptgoDWq --inplace" "$SRC/" "$DST/"
+      ${fpart}/bin/fpsync -n 24 -f 1000 -s 4294967296 -T ${rsync}/bin/rsync -o "-lptgoDWSq --inplace --numeric-ids" "$SRC/" "$DST/"
       EXIT_CODE=$?
       set -e
 
@@ -46,6 +46,7 @@
     # 2. pmove: Robust multi-threaded directory move
     (writeShellScriptBin "pmove" ''
       set -euo pipefail
+      trap 'echo -e "\n⚠️ Operation cancelled by user."; exit 1' INT TERM
 
       if [ "$#" -lt 2 ]; then
         echo "Usage: pmove <source_directory> <destination_directory>"
@@ -73,11 +74,10 @@
       echo "🚚 Parallel Move: $SRC -> $DST"
 
       set +e
-      ${fpart}/bin/fpsync -n 24 -f 1000 -o "-lptgoDWq --inplace --remove-source-files" "$SRC/" "$DST/"
+      ${fpart}/bin/fpsync -n 24 -f 1000 -s 4294967296 -T ${rsync}/bin/rsync -o "-lptgoDWSq --inplace --numeric-ids --remove-source-files" "$SRC/" "$DST/"
       EXIT_CODE=$?
       set -e
 
-      # Safely clean up empty directories only if the transfer was 100% successful
       if [ $EXIT_CODE -eq 0 ]; then
         ${findutils}/bin/find "$SRC" -type d -empty -delete
       else
@@ -91,6 +91,7 @@
     # 3. pmerge: Robust multi-threaded directory sync
     (writeShellScriptBin "pmerge" ''
       set -euo pipefail
+      trap 'echo -e "\n⚠️ Operation cancelled by user."; exit 1' INT TERM
 
       if [ "$#" -lt 2 ]; then
         echo "Usage: pmerge <source_directory> <destination_directory>"
@@ -118,12 +119,13 @@
       echo "🔄 Parallel Merge: $SRC -> $DST"
 
       set +e
-      ${fpart}/bin/fpsync -n 24 -f 1000 -o "-lptgoDWSqu --inplace" "$SRC/" "$DST/"
+      ${fpart}/bin/fpsync -n 24 -f 1000 -s 4294967296 -T ${rsync}/bin/rsync -o "-lptgoDWSqu --inplace --numeric-ids" "$SRC/" "$DST/"
       EXIT_CODE=$?
       set -e
 
       echo "⏱️ Completed in $((SECONDS - START)) seconds."
       exit $EXIT_CODE
     '')
+
   ];
 }
