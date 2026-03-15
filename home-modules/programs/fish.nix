@@ -30,9 +30,12 @@
       cd = "z";
       conf = "z ~/.nix";
       ".." = "z ..";
-      copy = "rsync -aWq";
-      move = "rsync -aWq --remove-source-files";
-      merge = "rsync -aWqu";
+      # Standard Parallel Sync (Copy)
+      copy = "fpsync -n 20 -o '-aWq'";
+      # Parallel Move (Delete source after successful transfer)
+      move = "fpsync -n 20 -o '-aWq --remove-source-files'";
+      # Parallel Merge (Only copy newer files)
+      merge = "fpsync -n 20 -o '-aWqu'";
       dl-sc = "yt-dlp --config-location ~/.config/yt-dlp/soundcloud.conf";
     };
 

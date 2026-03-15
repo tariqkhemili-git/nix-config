@@ -86,6 +86,7 @@
       yt-dlp # Downloader
       lazygit # Git TUI
       gocryptfs # Encrypted filesystems
+      fpart
 
       # --- Nix Development & Maintenance ---
       nixd # Nix Language Server
