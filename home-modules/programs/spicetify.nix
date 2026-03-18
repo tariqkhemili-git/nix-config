@@ -1,7 +1,7 @@
 { pkgs, inputs, ... }:
 
 let
-  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
+  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.system};
 in
 {
   programs.spicetify = {
@@ -11,7 +11,7 @@ in
       hidePodcasts
       shuffle
     ];
-    theme = spicePkgs.themes.catppuccin;
-    colorScheme = "mocha";
+    theme = spicePkgs.themes.lucid;
+    # colorScheme = "mocha";
   };
 }
