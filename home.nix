@@ -135,6 +135,7 @@
       libreoffice # Full office suite
       nomacs # Image viewer
       showtime # Video player
+      cisco-packet-tracer_9 # Cisco Packet Tracer
 
       # --- AI & Self-Hosted Services ---
       ollama # Local Large Language Model runner
