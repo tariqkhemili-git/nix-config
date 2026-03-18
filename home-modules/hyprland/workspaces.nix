@@ -10,7 +10,7 @@
       # Special scratchpad for Equibop (Discord)
       "special:equibop, on-created-empty:equibop, gapsin:15, gapsout:30"
       # Special scratchpad for Spotify (Music)
-      "special:spotify, gapsin:15, gapsout:30"
+      "special:spotify, on-created-empty:spotify, gapsin:15, gapsout:30"
     ];
   };
 }
