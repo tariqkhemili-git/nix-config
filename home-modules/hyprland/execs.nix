@@ -21,7 +21,7 @@
 
       # --- Apps ---
       "equibop"
-      "gapless"
+      "spotify"
     ];
   };
 }

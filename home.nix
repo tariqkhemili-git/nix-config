@@ -22,8 +22,8 @@
     ./home-modules/programs/zoxide.nix
     ./home-modules/programs/fastfetch.nix
     ./home-modules/programs/wlsunset.nix
+    ./home-modules/programs/spicetify.nix
 
-    ./home-modules/hyprland/hyprland.nix
     ./home-modules/hyprland/general.nix
     ./home-modules/hyprland/keybindings.nix
     ./home-modules/hyprland/monitors.nix
@@ -140,7 +140,6 @@
       steam # Gaming platform
       linux-wallpaperengine # Animated wallpapers
       mpd # Music Player Daemon
-      gapless # Music Player client
 
       # --- Theming & Frameworks ---
       gnome-themes-extra # GTK themes
