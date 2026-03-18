@@ -2,6 +2,7 @@
   pkgs,
   zen-browser,
   config,
+  inputs,
   ...
 }:
 
@@ -35,6 +36,8 @@
     ./home-modules/functions/system-report.nix
     ./home-modules/functions/sc-sync-all.nix
     ./home-modules/functions/cmm.nix
+
+    inputs.spicetify-nix.homeManagerModules.default
   ];
 
   home = {

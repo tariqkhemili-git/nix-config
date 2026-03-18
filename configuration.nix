@@ -31,6 +31,7 @@
       light = import ./home.nix;
     };
     extraSpecialArgs = {
+      inherit inputs;
       inherit (inputs) zen-browser;
     };
   };
