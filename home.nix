@@ -136,7 +136,7 @@
       nomacs # Image viewer
       showtime # Video player
       cisco-packet-tracer_9 # Cisco Packet Tracer
-      lazpaint # Paint.NET-inspired image editor
+      gimp # GNU image editor
 
       # --- AI & Self-Hosted Services ---
       ollama # Local Large Language Model runner
