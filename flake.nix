@@ -27,7 +27,7 @@
     nix-flatpak = {
       url = "github:gmodena/nix-flatpak";
     };
-    inputs.spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
   };
 
   outputs =
