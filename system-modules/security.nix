@@ -9,7 +9,6 @@
       enable = true;
       extraConfig = ''
         Defaults pwfeedback
-        Defaults passprompt_char="•"
       '';
     };
   };
