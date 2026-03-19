@@ -76,6 +76,7 @@
       XDG_DESKTOP_PORTAL_HYPRLAND_FORCE_SHM = "1"; # Nuclear fix for EIO error
 
       PYTHON_KEYRING_BACKEND = "keyring.backends.libsecret.Keyring";
+      ELECTRON_ARGS = "--password-store=gnome-libsecret";
     };
     packages = with pkgs; [
       # --- Terminal & Core Utilities ---
@@ -161,6 +162,10 @@
       kdePackages.kdegraphics-thumbnailers # Image/Video thumbnails
       kdePackages.kio-fuse # Mounting support for Dolphin
       kdePackages.dolphin-plugins # Git integration for Dolphin
+
+      # --- Security ---
+      libsecret
+      gnome-keyring
     ];
     pointerCursor = {
       gtk.enable = true;
