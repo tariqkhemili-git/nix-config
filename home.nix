@@ -142,6 +142,8 @@
       showtime # Video player
       cisco-packet-tracer_9 # Cisco Packet Tracer
       gimp # GNU image editor
+      libqalculate # CLI Calculator
+      qalculate-gtk # Calculator app
 
       # --- AI & Self-Hosted Services ---
       ollama # Local Large Language Model runner
