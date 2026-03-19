@@ -95,6 +95,9 @@
       gocryptfs # Encrypted filesystems
       fpart
 
+      # --- Development ---
+      python315
+
       # --- Nix Development & Maintenance ---
       nixd # Nix Language Server
       nixfmt # Nix code formatter
