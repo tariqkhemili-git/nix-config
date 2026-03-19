@@ -119,5 +119,10 @@
         WEBUI_AUTH = "true";
       };
     };
+    gnome = {
+      gnome-keyring = {
+        enable = true;
+      };
+    };
   };
 }

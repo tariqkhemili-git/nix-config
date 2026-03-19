@@ -5,6 +5,7 @@
     exec-once = [
       # --- System Essentials ---
       "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+      "gnome-keyring-daemon --start --components=secrets"
       "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
 

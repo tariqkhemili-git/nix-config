@@ -11,5 +11,12 @@
         Defaults pwfeedback
       '';
     };
+    pam = {
+      services = {
+        light = {
+          enableGnomeKeyring = true;
+        };
+      };
+    };
   };
 }

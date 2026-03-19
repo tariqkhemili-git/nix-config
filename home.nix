@@ -74,6 +74,8 @@
       XDG_SESSION_TYPE = "wayland";
       XDG_SESSION_DESKTOP = "Hyprland";
       XDG_DESKTOP_PORTAL_HYPRLAND_FORCE_SHM = "1"; # Nuclear fix for EIO error
+
+      PYTHON_KEYRING_BACKEND = "keyring.backends.libsecret.Keyring";
     };
     packages = with pkgs; [
       # --- Terminal & Core Utilities ---
