@@ -95,10 +95,6 @@
           appId = "org.vinegarhq.Sober";
           origin = "flathub";
         }
-        {
-          appId = "im.riot.Riot";
-          origin = "flathub";
-        }
       ];
       update.auto.enable = true;
     };

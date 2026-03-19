@@ -130,6 +130,7 @@
       # --- Web Browsers & Communication ---
       zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default # Primary Browser
       session-desktop # Privacy-focused messenger
+      element-desktop # Privacy-focused communication
       equibop # Discord chat client
 
       # --- Productivity & Creative ---
