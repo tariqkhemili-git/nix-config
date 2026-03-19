@@ -133,7 +133,8 @@
       # --- Web Browsers & Communication ---
       zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default # Primary Browser
       session-desktop # Privacy-focused messenger
-      element-desktop # Privacy-focused communication
+      element-desktop # Official Matrix client
+      nheko # Fast Matrix client
       equibop # Discord chat client
 
       # --- Productivity & Creative ---
