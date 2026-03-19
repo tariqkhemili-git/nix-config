@@ -166,6 +166,7 @@
       # --- Security ---
       libsecret
       gnome-keyring
+      seahorse
     ];
     pointerCursor = {
       gtk.enable = true;
