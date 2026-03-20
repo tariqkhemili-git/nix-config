@@ -132,7 +132,7 @@
 
       # --- Web Browsers & Communication ---
       zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default # Primary Browser
-      ungoogled-chromium # Chromium browser
+      chromium # Chromium browser
       session-desktop # Privacy-focused messenger
       element-desktop # Official Matrix client
       nheko # Fast Matrix client
