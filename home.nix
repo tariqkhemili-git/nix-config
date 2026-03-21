@@ -136,7 +136,6 @@
       session-desktop # Privacy-focused messenger
       element-desktop # Official Matrix client
       jami # Libre communication
-      nheko # Fast Matrix client
       equibop # Discord chat client
 
       # --- Productivity & Creative ---
