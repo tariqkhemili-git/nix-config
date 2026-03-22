@@ -27,7 +27,7 @@
       clean = "nh clean all";
       nixconf = "z ~/.nix && micro";
       s = "sudo";
-      m = "micro";
+      e = "micro";
       cd = "z";
       conf = "z ~/.nix";
       ".." = "z ..";
@@ -37,7 +37,6 @@
     shellAliases = {
       fish-edit = "micro /home/light/.nix/home-modules/programs/fish.nix";
       nix-tree = "tree -J /home/light/.nix > '/home/light/Documents/System Info/nix-tree.json'";
-      e = "micro";
       cat = "bat";
       ls = "eza --icons --group-directories-first";
       ll = "eza -lh --icons --grid --group-directories-first --sort=modified";
