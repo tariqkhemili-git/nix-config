@@ -15,6 +15,7 @@
       set -g fish_color_quote yellow
       set -g fish_color_error red
       set -g fish_color_param blue
+      export NIXPKGS_ALLOW_UNFREE=1
     '';
 
     shellAbbrs = {
