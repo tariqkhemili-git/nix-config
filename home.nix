@@ -133,7 +133,6 @@
       # --- Web Browsers & Communication ---
       zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default # Primary Browser
       chromium # Chromium browser
-      brave # Privacy-oriented browser
       session-desktop # Privacy-focused messenger
       element-desktop # Official Matrix client
       jami # Libre communication
