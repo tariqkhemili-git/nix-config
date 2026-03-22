@@ -175,8 +175,6 @@
       libsecret
       gnome-keyring
       seahorse
-      wooting-udev-rules
-      wootility
     ];
     pointerCursor = {
       gtk.enable = true;
