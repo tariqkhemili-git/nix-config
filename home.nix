@@ -156,6 +156,7 @@
       # --- Gaming & Entertainment ---
       steam # Gaming platform
       linux-wallpaperengine # Animated wallpapers
+      prismlauncher # Minecraft launcher
       mpd # Music Player Daemon
 
       # --- Theming & Frameworks ---
