@@ -24,6 +24,7 @@
     ./home-modules/programs/fastfetch.nix
     ./home-modules/programs/wlsunset.nix
     ./home-modules/programs/spicetify.nix
+    ./home-modules/programs/yt-dlp-soundcloud.nix
 
     ./home-modules/hyprland/general.nix
     ./home-modules/hyprland/keybindings.nix
