@@ -136,6 +136,7 @@
       chromium # Chromium browser
       session-desktop # Privacy-focused messenger
       element-desktop # Official Matrix client
+      nheko # Fast Matrix client
       jami # Libre communication
       equibop # Discord chat client
 
