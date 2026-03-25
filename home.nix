@@ -138,6 +138,7 @@
       element-desktop # Official Matrix client
       nheko # Fast Matrix client
       keet # P2P chat
+      jami # P2P chat
       equibop # Discord chat client
 
       # --- Productivity & Creative ---
