@@ -1,7 +1,0 @@
-{ ... }:
-
-{
-  time = {
-    timeZone = "Europe/London";
-  };
-}

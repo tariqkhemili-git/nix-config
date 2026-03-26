@@ -33,14 +33,31 @@
   };
 
   outputs =
-    { nixpkgs, nix-flatpak, ... }@inputs:
+    {
+      self,
+      nixpkgs,
+      nix-flatpak,
+      home-manager,
+      ...
+    }@inputs: # <-- Added home-manager here
     {
       nixosConfigurations = {
         nixterminator = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
-            ./configuration.nix
+            ./config.nix
             nix-flatpak.nixosModules.nix-flatpak
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+                zen-browser = inputs.zen-browser;
+              };
+              home-manager.backupFileExtension = "backup";
+              home-manager.users.light = import ./home.nix;
+            }
           ];
         };
       };
