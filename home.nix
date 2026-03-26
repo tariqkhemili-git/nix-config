@@ -113,7 +113,6 @@
       # --- Productivity & Creative ---
       vscode # Modern code editor
       obsidian # Knowledge management & notes
-      libreoffice # Full office suite
       onlyoffice-desktopeditors # Full office suite
       nomacs # Image viewer
       showtime # Video player
