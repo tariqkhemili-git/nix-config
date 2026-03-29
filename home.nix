@@ -943,7 +943,7 @@
           hidePodcasts
           shuffle
         ];
-      theme = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system}.themes.lucid;
+      theme = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system}.themes.hazy;
     };
     starship = {
       enable = true;
