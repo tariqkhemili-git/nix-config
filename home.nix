@@ -108,6 +108,7 @@
       nheko # Fast Matrix client
       keet # P2P chat
       jami # P2P chat
+      tg # Privacy messenger
       equibop # Discord chat client
 
       # --- Productivity & Creative ---

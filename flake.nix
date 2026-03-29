@@ -39,7 +39,7 @@
       nix-flatpak,
       home-manager,
       ...
-    }@inputs: # <-- Added home-manager here
+    }@inputs:
     {
       nixosConfigurations = {
         nixterminator = nixpkgs.lib.nixosSystem {
