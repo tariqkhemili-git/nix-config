@@ -112,7 +112,7 @@
       obsidian # Knowledge management & notes
       onlyoffice-desktopeditors # Full office suite
       nomacs # Image viewer
-      showtime # Video player
+      mpv # Video player
       cisco-packet-tracer_9 # Cisco Packet Tracer
       gimp # GNU image editor
       libqalculate # CLI Calculator
@@ -126,7 +126,6 @@
       linux-wallpaperengine # Animated wallpapers
       prismlauncher # Minecraft launcher
       mpd # Music Player Daemon
-      mpv # Video
 
       # --- Theming & Frameworks ---
       gnome-themes-extra # GTK themes
