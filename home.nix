@@ -1261,6 +1261,14 @@
         #custom-logo {
             color: #4379a2;
             font-size: 16px;
+            padding: 4px 4px 4px 8px;
+            margin: 0;
+        }
+
+        #custom-power {
+            color: #ffffff;
+            padding-left: 10px;   /* Internal horizontal padding */
+            padding-right: 5px;
         }
 
         /* Workspace Customisation */
@@ -1269,7 +1277,7 @@
         }
 
         #workspaces button {
-            padding: 0;
+            padding: 0 4px 0 0;
             margin: 0 4px;
             /* Force equal dimensions to create a perfect circle */
             min-width: 24px;
