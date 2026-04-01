@@ -1070,7 +1070,6 @@
             "bluetooth"
             "network"
             "backlight"
-            "keyboard-state"
             "tray"
             "custom/power"
           ];
@@ -1078,16 +1077,6 @@
           "custom/logo" = {
             format = " ";
             tooltip = false;
-          };
-
-          "keyboard-state" = {
-            numlock = false;
-            capslock = true;
-            format = "{name} {icon}";
-            format-icons = {
-              locked = "";
-              unlocked = "";
-            };
           };
 
           "sway/mode" = {
@@ -1156,10 +1145,12 @@
           "network" = {
             format-wifi = "  {signalStrength}%";
             format-ethernet = "󰈀  Connected";
-            tooltip-format = "";
+            # Added tooltip formatting to show your local network name and IP securely
+            tooltip-format-wifi = "   {essid}\n󰩟  {ipaddr}";
+            tooltip-format-ethernet = "󰈀   {ifname}\n󰩟  {ipaddr}";
             format-linked = "";
             format-disconnected = "󰤮  Offline";
-            tooltip = false;
+            tooltip = true; # Enabled the tooltip
             on-click = "foot -e nmtui";
           };
 
@@ -1219,11 +1210,24 @@
             margin: 0;
         }
 
-        /* * 1. Make the main bar completely transparent. 
-         * This separates the modules and creates the floating effect.
-         */
+        /* 1. Make the main bar completely transparent. */
         window#waybar {
             background: transparent;
+        }
+
+        /* Tooltip Styling - Liquid Glass Hover Popups */
+        tooltip {
+            background: rgba(20, 25, 30, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 8px;
+            /* Dropshadow for depth */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        tooltip label {
+            color: #ffffff;
+            padding: 4px;
         }
 
         /* Right-Click Menu Styling - Frosted Glass */
@@ -1239,12 +1243,10 @@
             transition: all 0.2s ease-in-out;
         }
         menuitem:hover {
-            background: rgba(67, 121, 162, 0.3); /* Accent colour hover */
+            background: rgba(67, 121, 162, 0.3);
         }
 
-        /* * 2. Pill shaping and liquid-glass look for all modules.
-         * The heavy border-radius and subtle white top-border mimic glass reflection.
-         */
+        /* 2. Pill shaping and liquid-glass look for all modules. */
         .modules-left > widget > *,
         .modules-center > widget > *,
         .modules-right > widget > * {
@@ -1279,18 +1281,15 @@
         #workspaces button {
             padding: 0 4px 0 0;
             margin: 0 4px;
-            /* Force equal dimensions to create a perfect circle */
             min-width: 24px;
             min-height: 24px;
-            border-radius: 50%; /* Makes the hover/background perfectly round */
+            border-radius: 50%;
             color: rgba(255, 255, 255, 0.4); 
             background: transparent;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        /* * 3. Accent Colour implementation for active workspaces.
-         * Gives a nice glowing circular pill effect.
-         */
+        /* 3. Accent Colour implementation for active workspaces. */
         #workspaces button.active {
             color: #ffffff;
             background: #4379a2; 
