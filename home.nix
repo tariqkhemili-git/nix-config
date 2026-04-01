@@ -79,10 +79,6 @@
       git # Standard version control
       gh # GitHub CLI
 
-      # --- Compression Tools ---
-      zstd # Fast real-time compression
-      gnutar # Standard archive utility
-
       # --- Hyprland Desktop Environment ---
       waybar # Status bar
       swaynotificationcenter # Notification daemon
@@ -409,6 +405,82 @@
         } > "$REPORT_FILE"
 
         notify-send "System Report" "Report generated at $REPORT_FILE"
+      '')
+      # extract (Max Performance, Multithreaded, Silent)
+      (pkgs.writeShellScriptBin "extract" ''
+        set -euo pipefail
+
+        export PATH="${
+          pkgs.lib.makeBinPath [
+            pkgs.gnutar
+            pkgs.unzip
+            pkgs.p7zip
+            pkgs.zstd
+            pkgs.pigz # Parallel gzip
+            pkgs.pbzip2 # Parallel bzip2
+            pkgs.xz # Supports multithreading via -T0
+            pkgs.coreutils
+          ]
+        }:$PATH"
+
+        if [ "$#" -eq 0 ]; then exit 1; fi
+
+        for FILE in "$@"; do
+          if [ -f "$FILE" ]; then
+            case "$FILE" in
+              *.tar.bz2|*.tbz2) tar -I pbzip2 -xf "$FILE" ;;
+              *.tar.gz|*.tgz)   tar -I pigz -xf "$FILE" ;;
+              *.tar.xz|*.txz)   tar -I 'xz -T0' -xf "$FILE" ;;
+              *.tar.zst)        tar -I 'zstd -T0 -q' -xf "$FILE" ;;
+              *.bz2)            pbzip2 -d -q "$FILE" ;;
+              *.rar|*.7z)       7z x -bd -bso0 "$FILE" ;;
+              *.gz)             pigz -d -q "$FILE" ;;
+              *.tar)            tar -xf "$FILE" ;;
+              *.zip)            unzip -q "$FILE" ;;
+              *.xz)             xz -d -T0 -q "$FILE" ;;
+              *.Z)              uncompress "$FILE" ;;
+              *)                >&2 echo "Unrecognised: $FILE"; exit 1 ;;
+            esac
+          fi
+        done
+      '')
+
+      # compress (Max Performance, Multithreaded, Silent)
+      (pkgs.writeShellScriptBin "compress" ''
+        set -euo pipefail
+
+        export PATH="${
+          pkgs.lib.makeBinPath [
+            pkgs.gnutar
+            pkgs.zip
+            pkgs.p7zip
+            pkgs.zstd
+            pkgs.pigz # Parallel gzip
+            pkgs.pbzip2 # Parallel bzip2
+            pkgs.xz # Supports multithreading via -T0
+            pkgs.coreutils
+          ]
+        }:$PATH"
+
+        if [ "$#" -lt 2 ]; then exit 1; fi
+
+        ARCHIVE="$1"
+        shift
+        SOURCES=("''${@}")
+
+        case "$ARCHIVE" in
+          *.tar.zst)        tar -I 'zstd -T0 -q' -cf "$ARCHIVE" "''${SOURCES[@]}" ;;
+          *.tar.gz|*.tgz)   tar -I 'pigz -q' -cf "$ARCHIVE" "''${SOURCES[@]}" ;;
+          *.tar.bz2|*.tbz2) tar -I 'pbzip2 -q' -cf "$ARCHIVE" "''${SOURCES[@]}" ;;
+          *.tar.xz|*.txz)   tar -I 'xz -T0 -q' -cf "$ARCHIVE" "''${SOURCES[@]}" ;;
+          *.tar)            tar -cf "$ARCHIVE" "''${SOURCES[@]}" ;;
+          *.zip)            zip -rq "$ARCHIVE" "''${SOURCES[@]}" ;;
+          *.7z)             7z a -bd -bso0 "$ARCHIVE" "''${SOURCES[@]}" ;;
+          *) 
+            # Default to max performance zstd if no valid extension is provided
+            tar -I 'zstd -T0 -q' -cf "$ARCHIVE.tar.zst" "''${SOURCES[@]}"
+            ;;
+        esac
       '')
     ];
     pointerCursor = {
@@ -833,10 +905,6 @@
         cat = "bat";
         ls = "eza --icons --group-directories-first";
         ll = "eza -lh --icons --grid --group-directories-first --sort=modified";
-        # High-performance, multithreaded compression (silent)
-        compress = "tar --use-compress-program='zstd -T0 -q' -cf";
-        # Robust, format-agnostic, and silent extraction
-        extract = "tar -xf";
         unlock-vault = "gocryptfs ~/Documents/.vault_cipher ~/Documents/Vault";
         lock-vault = "fusermount -u ~/Documents/Vault";
       };
