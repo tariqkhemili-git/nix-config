@@ -1267,7 +1267,7 @@
 
         #custom-power {
             color: #ffffff;
-            padding-left: 10px;   /* Internal horizontal padding */
+            padding-left: 10px;   
             padding-right: 5px;
         }
 
