@@ -1046,8 +1046,13 @@
       systemd.enable = false;
       settings = {
         mainBar = {
-          height = 5;
-          spacing = 4;
+          # Added margins to float the bar away from the screen edges
+          margin-top = 10;
+          margin-left = 15;
+          margin-right = 15;
+          margin-bottom = 0;
+          height = 36;
+          spacing = 8;
 
           modules-left = [
             "custom/logo"
@@ -1056,11 +1061,9 @@
             "sway/scratchpad"
             "custom/media"
           ];
-
           modules-center = [
             "clock"
           ];
-
           modules-right = [
             "mpd"
             "pulseaudio"
@@ -1073,7 +1076,7 @@
           ];
 
           "custom/logo" = {
-            format = "  light";
+            format = " ";
             tooltip = false;
           };
 
@@ -1085,14 +1088,11 @@
               locked = "";
               unlocked = "";
             };
-            # Uncomment and replace with your actual keyboard ID from `hyprctl devices` to fix input delay
-            # device-path = "/dev/input/by-id/usb-Your_Keyboard-event-kbd";
           };
 
           "sway/mode" = {
             format = ''<span style="italic">{}</span>'';
           };
-
           "sway/scratchpad" = {
             format = "{icon} {count}";
             show-empty = false;
@@ -1114,7 +1114,7 @@
               on = " ";
             };
             random-icons = {
-              off = ''<span color="#87b2d4"></span> '';
+              off = ''<span color="#4379a2"></span> '';
               on = " ";
             };
             repeat-icons = {
@@ -1130,11 +1130,9 @@
             tooltip-format = "MPD (connected)";
             tooltip-format-disconnected = "MPD (disconnected)";
           };
-
           "tray" = {
             spacing = 10;
           };
-
           "clock" = {
             tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
             format-alt = "{:%Y-%m-%d}";
@@ -1171,7 +1169,6 @@
             tooltip-format = "{controller_alias}\t{controller_address}";
             on-click = "foot -e bluetuith";
           };
-
           "pulseaudio" = {
             format = "{icon}  {volume}%";
             format-bluetooth = "{icon} {format_source}";
@@ -1213,7 +1210,7 @@
       style = ''
         /* General definitions */
         * {
-            font-family: "JetBrainsMono Nerd Font", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+            font-family: "JetBrainsMono Nerd Font", FontAwesome, sans-serif;
             font-size: 14px;
             font-weight: bold;
             border: none;
@@ -1222,17 +1219,18 @@
             margin: 0;
         }
 
+        /* * 1. Make the main bar completely transparent. 
+         * This separates the modules and creates the floating effect.
+         */
         window#waybar {
-            background: rgba(30, 35, 38, 0.4);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            color: #ffffff;
+            background: transparent;
         }
 
-        /* Right-Click Menu Styling */
+        /* Right-Click Menu Styling - Frosted Glass */
         menu {
-            background: rgba(30, 35, 38, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            background: rgba(20, 25, 30, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
             padding: 8px;
         }
         menuitem {
@@ -1241,62 +1239,69 @@
             transition: all 0.2s ease-in-out;
         }
         menuitem:hover {
-            background: rgba(135, 178, 212, 0.3);
+            background: rgba(67, 121, 162, 0.3); /* Accent colour hover */
         }
 
-        /* Consistent padding and glassy background for all modules */
+        /* * 2. Pill shaping and liquid-glass look for all modules.
+         * The heavy border-radius and subtle white top-border mimic glass reflection.
+         */
         .modules-left > widget > *,
         .modules-center > widget > *,
         .modules-right > widget > * {
-            margin: 4px 6px;
-            padding: 4px 12px;
-            background: rgba(46, 52, 58, 0.5); 
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
+            margin: 0px 4px;
+            padding: 6px 14px;
+            background: rgba(20, 25, 30, 0.55); 
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px; 
             color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
         }
 
         /* Logo Accent */
         #custom-logo {
-            color: #87b2d4;
-            padding-right: 15px;
+            color: #4379a2;
+            font-size: 16px;
         }
 
         /* Workspace Customisation */
         #workspaces {
-            padding: 2px;
+            padding: 2px 4px;
         }
 
         #workspaces button {
-            padding: 0 8px;
-            margin: 0 2px;
-            color: #4f5b66; 
-            font-size: 14px; 
+            padding: 0;
+            margin: 0 4px;
+            /* Force equal dimensions to create a perfect circle */
+            min-width: 24px;
+            min-height: 24px;
+            border-radius: 50%; /* Makes the hover/background perfectly round */
+            color: rgba(255, 255, 255, 0.4); 
             background: transparent;
-            border: none;
-            transition: all 0.2s ease-in-out;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
+        /* * 3. Accent Colour implementation for active workspaces.
+         * Gives a nice glowing circular pill effect.
+         */
         #workspaces button.active {
-            color: #87b2d4; 
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            font-size: 14px; 
+            color: #ffffff;
+            background: #4379a2; 
+            box-shadow: 0 0 10px rgba(67, 121, 162, 0.4);
         }
 
         #workspaces button:hover {
             color: #ffffff;
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(67, 121, 162, 0.5);
             box-shadow: none; 
         }
 
         /* Module Specific Accents */
         #clock {
-            color: #87b2d4;
+            color: #ffffff;
         }
 
-        #pulseaudio, #network, #backlight, #bluetooth {
-            color: #d3d3d3;
+        #pulseaudio, #network, #backlight, #bluetooth, #mpd, #tray {
+            color: #e0e0e0;
         }
 
         #network.disconnected {
