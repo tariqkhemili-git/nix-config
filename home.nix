@@ -796,6 +796,8 @@
             "match:namespace ^(waybar)$, blur on"
             "match:namespace ^(waybar)$, blur_popups on"
             "match:namespace ^(waybar)$, ignore_alpha 0.2"
+            "match:namespace ^(wlogout)$, blur on"
+            "match:namespace ^(wlogout)$, ignore_alpha 0.2"
           ];
 
           windowrule = [
@@ -912,7 +914,7 @@
     foot = {
       enable = true;
       # We will disable the automatic Home Manager service and
-      # run it manually or let Hyprland start it to avoid session race conditions[cite: 178, 179].
+      # run it manually or let Hyprland start it to avoid session race conditions.
       server.enable = false;
 
       settings = {
@@ -922,7 +924,7 @@
         };
 
         tweak = {
-          # Silences the DejaVu Sans warning [cite: 181]
+          # Silences the DejaVu Sans warning
           font-monospace-warn = "no";
         };
 
@@ -1323,6 +1325,74 @@
     zoxide = {
       enable = true;
       enableFishIntegration = true;
+    };
+    wlogout = {
+      enable = true;
+      layout = [
+        {
+          label = "lock";
+          action = "loginctl lock-session";
+          text = "Lock";
+          keybind = "l";
+        }
+        {
+          label = "logout";
+          action = "hyprctl dispatch exit 0";
+          text = "Logout";
+          keybind = "e";
+        }
+        {
+          label = "reboot";
+          action = "systemctl reboot";
+          text = "Reboot";
+          keybind = "r";
+        }
+        {
+          label = "shutdown";
+          action = "systemctl poweroff";
+          text = "Shutdown";
+          keybind = "s";
+        }
+      ];
+      style = ''
+        * {
+            background-image: none;
+            font-family: "JetBrainsMono Nerd Font", FontAwesome, sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        window {
+            /* Extremely subtle background tint, relying on Hyprland's blur */
+            background-color: rgba(20, 25, 30, 0.2); 
+        }
+
+        button {
+            color: #ffffff;
+            background-color: rgba(20, 25, 30, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 36px; /* Liquid glass rounded pills */
+            margin: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 25%;
+        }
+
+        button:hover {
+            background-color: rgba(67, 121, 162, 0.5); /* Accent colour */
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 15px rgba(67, 121, 162, 0.4);
+        }
+
+        /* Map icons directly from the Nix store package */
+        #lock { background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/lock.png")); }
+        #logout { background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/logout.png")); }
+        #reboot { background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/reboot.png")); }
+        #shutdown { background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/shutdown.png")); }
+      '';
     };
   };
   dconf = {
