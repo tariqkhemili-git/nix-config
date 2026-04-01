@@ -126,6 +126,7 @@
       linux-wallpaperengine # Animated wallpapers
       prismlauncher # Minecraft launcher
       mpd # Music Player Daemon
+      mpv # Video
 
       # --- Theming & Frameworks ---
       gnome-themes-extra # GTK themes
@@ -1393,6 +1394,45 @@
         #reboot { background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/reboot.png")); }
         #shutdown { background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/shutdown.png")); }
       '';
+    };
+    mpv = {
+      enable = true;
+      config = {
+        # Core video & decoding
+        vo = "gpu-next";
+        gpu-api = "vulkan";
+        hwdec = "nvdec-copy"; # Optimised for cropping/rotation on Nvidia
+
+        # HDR & Colour (The Fix)
+        tone-mapping = "bt.2446a";
+        target-colorspace-hint = true; # Passes HDR metadata to your HKC monitor
+
+        # Motion Interpolation (200Hz Smoothness)
+        video-sync = "display-resample";
+        interpolation = true;
+        tscale = "oversample";
+
+        # Upscaling
+        profile = "high-quality";
+        scale = "ewa_lanczossharp";
+        dscale = "mitchell";
+        cscale = "spline36";
+
+        # Behaviour
+        keep-open = true;
+        save-position-on-quit = true;
+        force-window = "immediate"; # Prevents the background window bug
+        loop-playlist = "inf";
+      };
+
+      bindings = {
+        # Rotates video 90 degrees clockwise per press
+        "Alt+r" = ''cycle-values video-rotate "90" "180" "270" "0"'';
+
+        # Useful volume controls
+        "UP" = "add volume 5";
+        "DOWN" = "add volume -5";
+      };
     };
   };
   dconf = {
