@@ -693,10 +693,6 @@
 
             # --- Wallpaper Engine ---
             "linux-wallpaperengine --silent --scaling fill --fps 60 --screen-root DP-3 --bg 3341326865 --screen-root HDMI-A-1 --bg 3449595825 --set-property newproperty3=\"0.52 0.69 0.83\""
-
-            # --- Apps ---
-            "equibop"
-            "spotify"
           ];
           bind = [
             "$mainMod, Q, killactive,"
@@ -792,34 +788,32 @@
             "HDMI-A-1, 1920x1080@180, 1920x0, 1, bitdepth, 10"
             "DP-2, disable"
           ];
-          # --- Layer Rules (Waybar & Wlogout Blurs) ---
+          # --- Layer Rules (Hyprland 0.54+) ---
           layerrule = [
-            "blur, waybar"
-            "blur_popups, waybar"
-            "ignorealpha 0.2, waybar"
-            "blur, wlogout"
-            "ignorealpha 0.2, wlogout"
+            "blur on, match:namespace ^(waybar)$"
+            "blur_popups on, match:namespace ^(waybar)$"
+            "ignore_alpha 0.2, match:namespace ^(waybar)$"
+            "blur on, match:namespace ^(wlogout)$"
+            "ignore_alpha 0.2, match:namespace ^(wlogout)$"
           ];
 
-          # --- Standard Window Rules (V1: RULE, TARGET) ---
+          # --- Window Rules (Hyprland 0.54+) ---
+          # NOTE: windowrulev2 is completely deprecated.
           windowrule = [
-            "opacity 0.90 0.90, ^(zen-browser)$"
-            "opacity 0.80 0.80, ^(foot)$"
-            "float, ^(pavucontrol)$"
-            "float, ^(bluetuith)$"
-            "workspace special:spotify silent, ^(spotify)$"
-          ];
+            "opacity 0.90 0.90, match:class ^(zen-browser)$"
+            "opacity 0.80 0.80, match:class ^(foot)$"
+            "float on, match:class ^(pavucontrol)$"
+            "float on, match:class ^(bluetuith)$"
+            "workspace special:spotify silent, match:class ^(spotify)$"
 
-          # --- Complex Window Rules (V2: RULE, DICTIONARY) ---
-          windowrulev2 = [
-            # The Equibop Fix: Maps to the scratchpad using the electron class and title regex
-            "workspace special:equibop silent, class:^(electron)$, title:(.*Discord.*|.*Equibop.*)"
+            # The Equibop Fix: Matches both the generic electron class AND the title
+            "workspace special:equibop silent, match:class ^(electron)$, match:title .*(Discord|Equibop).*"
           ];
           workspace = [
             "1, monitor:DP-3, default:true"
             "2, monitor:HDMI-A-1, default:true"
-            "special:equibop, gapsin:15, gapsout:30"
-            "special:spotify, gapsin:15, gapsout:30"
+            "special:equibop, on-created-empty:equibop, gapsin:15, gapsout:30"
+            "special:spotify, on-created-empty:spotify, gapsin:15, gapsout:30"
           ];
         };
       };
