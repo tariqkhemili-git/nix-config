@@ -792,21 +792,28 @@
             "HDMI-A-1, 1920x1080@180, 1920x0, 1, bitdepth, 10"
             "DP-2, disable"
           ];
+          # --- Layer Rules (Waybar & Wlogout Blurs) ---
           layerrule = [
-            "match:namespace ^(waybar)$, blur on"
-            "match:namespace ^(waybar)$, blur_popups on"
-            "match:namespace ^(waybar)$, ignore_alpha 0.2"
-            "match:namespace ^(wlogout)$, blur on"
-            "match:namespace ^(wlogout)$, ignore_alpha 0.2"
+            "blur, waybar"
+            "blur_popups, waybar"
+            "ignorealpha 0.2, waybar"
+            "blur, wlogout"
+            "ignorealpha 0.2, wlogout"
           ];
 
+          # --- Standard Window Rules (V1: RULE, TARGET) ---
           windowrule = [
-            "match:class ^(electron)$, title:.*(Discord|Equibop).*, workspace special:equibop silent"
-            "match:class zen-browser, opacity 0.90 0.90"
-            "match:class foot, opacity 0.80 0.80"
-            "match:class pavucontrol, float on"
-            "match:class bluetuith, float on"
-            "match:class spotify, workspace special:spotify silent"
+            "opacity 0.90 0.90, ^(zen-browser)$"
+            "opacity 0.80 0.80, ^(foot)$"
+            "float, ^(pavucontrol)$"
+            "float, ^(bluetuith)$"
+            "workspace special:spotify silent, ^(spotify)$"
+          ];
+
+          # --- Complex Window Rules (V2: RULE, DICTIONARY) ---
+          windowrulev2 = [
+            # The Equibop Fix: Maps to the scratchpad using the electron class and title regex
+            "workspace special:equibop silent, class:^(electron)$, title:(.*Discord.*|.*Equibop.*)"
           ];
           workspace = [
             "1, monitor:DP-3, default:true"
