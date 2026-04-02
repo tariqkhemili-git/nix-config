@@ -801,22 +801,18 @@
           ];
 
           windowrule = [
+            "match:class ^(electron)$, title:.*(Discord|Equibop).*, workspace special:equibop silent"
             "match:class zen-browser, opacity 0.90 0.90"
             "match:class foot, opacity 0.80 0.80"
             "match:class pavucontrol, float on"
             "match:class bluetuith, float on"
-            "match:class equibop, workspace special:equibop silent"
             "match:class spotify, workspace special:spotify silent"
           ];
           workspace = [
-            # Monitor Bindings (180Hz DP-3 & 200Hz HDMI-A-1)
             "1, monitor:DP-3, default:true"
             "2, monitor:HDMI-A-1, default:true"
-
-            # Special scratchpad for Equibop (Discord)
-            "special:equibop, on-created-empty:equibop, gapsin:15, gapsout:30"
-            # Special scratchpad for Spotify (Music)
-            "special:spotify, on-created-empty:spotify, gapsin:15, gapsout:30"
+            "special:equibop, gapsin:15, gapsout:30"
+            "special:spotify, gapsin:15, gapsout:30"
           ];
         };
       };
