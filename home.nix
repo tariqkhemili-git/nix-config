@@ -795,6 +795,8 @@
             "ignore_alpha 0.2, match:namespace ^(waybar)$"
             "blur on, match:namespace ^(wlogout)$"
             "ignore_alpha 0.2, match:namespace ^(wlogout)$"
+            "match:namespace ^(rofi)$, blur on"
+            "match:namespace ^(rofi)$, ignore_alpha 0.2"
           ];
 
           # --- Window Rules (Hyprland 0.54+) ---
@@ -1429,6 +1431,87 @@
         "UP" = "add volume 5";
         "DOWN" = "add volume -5";
       };
+    };
+    rofi = {
+      enable = true;
+      package = pkgs.rofi;
+      extraConfig = {
+        modi = "drun,run,window";
+        show-icons = true;
+        terminal = "foot";
+        drun-display-format = "{icon} {name}";
+        disable-history = false;
+        hide-scrollbar = true;
+        display-drun = "   Apps ";
+        display-run = "   Run ";
+        display-window = "   Window ";
+      };
+      theme =
+        let
+          inherit (config.lib.formats.rasi) mkLiteral;
+        in
+        {
+          "*" = {
+            background-color = mkLiteral "transparent";
+            text-color = mkLiteral "#ffffff";
+            font = "JetBrainsMono Nerd Font 14";
+          };
+          "window" = {
+            width = mkLiteral "40%";
+            background-color = mkLiteral "rgba(20, 25, 30, 0.55)";
+            border = mkLiteral "1px";
+            border-color = mkLiteral "rgba(255, 255, 255, 0.08)";
+            border-radius = mkLiteral "24px";
+            padding = mkLiteral "20px";
+          };
+          "mainbox" = {
+            spacing = mkLiteral "15px";
+          };
+          "inputbar" = {
+            background-color = mkLiteral "rgba(20, 25, 30, 0.75)";
+            border = mkLiteral "1px";
+            border-color = mkLiteral "rgba(255, 255, 255, 0.08)";
+            border-radius = mkLiteral "16px";
+            padding = mkLiteral "12px 16px";
+            spacing = mkLiteral "12px";
+            children = mkLiteral "[ prompt, entry ]";
+          };
+          "prompt" = {
+            text-color = mkLiteral "#4379a2";
+          };
+          "entry" = {
+            placeholder = "Search applications...";
+            placeholder-color = mkLiteral "rgba(255, 255, 255, 0.4)";
+            text-color = mkLiteral "#ffffff";
+          };
+          "listview" = {
+            columns = 2;
+            lines = 8;
+            spacing = mkLiteral "8px";
+            fixed-height = true;
+            fixed-columns = true;
+          };
+          "element" = {
+            padding = mkLiteral "10px";
+            border-radius = mkLiteral "12px";
+            background-color = mkLiteral "transparent";
+            text-color = mkLiteral "#e0e0e0";
+            # transition removed entirely as RASI does not support it
+          };
+          "element normal.normal, element alternate.normal" = {
+            background-color = mkLiteral "transparent";
+          };
+          "element selected.normal" = {
+            background-color = mkLiteral "rgba(67, 121, 162, 0.5)"; # Accent colour hover
+            border = mkLiteral "1px";
+            border-color = mkLiteral "rgba(255, 255, 255, 0.15)";
+            text-color = mkLiteral "#ffffff";
+          };
+          "element-icon" = {
+            size = mkLiteral "24px";
+            margin = mkLiteral "0 10px 0 0";
+          };
+        };
     };
   };
   dconf = {
