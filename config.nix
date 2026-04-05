@@ -1,8 +1,8 @@
 {
   pkgs,
   inputs,
-  config,
   lib,
+  config,
   ...
 }:
 {
@@ -11,13 +11,10 @@
   # ------------
   boot = {
     loader = {
-      limine = {
+      systemd-boot = {
         enable = true;
-        style = {
-          interface = {
-            resolution = "1920x1080";
-          };
-        };
+        consoleMode = "max";
+        configurationLimit = 10;
       };
       efi = {
         canTouchEfiVariables = true;

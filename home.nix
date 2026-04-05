@@ -144,6 +144,7 @@
       libsecret
       gnome-keyring
       seahorse
+      keepassxc
       # -----------------
       # --- Functions ---
       # -----------------
@@ -672,10 +673,16 @@
           #   workspace_swipe = true;
           # };
 
-          device = {
-            name = "epic-mouse-v1";
-            sensitivity = -0.5;
-          };
+          device = [
+            {
+              name = "epic-mouse-v1";
+              sensitivity = -0.5;
+            }
+            {
+              name = "ilitek-------ilitek-touch";
+              enabled = false;
+            }
+          ];
           exec-once = [
             # --- System Essentials ---
             "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
