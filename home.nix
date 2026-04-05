@@ -756,8 +756,14 @@
             # Scroll workspaces
             "$mainMod, mouse_down, workspace, e+1"
             "$mainMod, mouse_up, workspace, e-1"
+
+            # Colour picker
             "$mainMod SHIFT, C, exec, hyprpicker -a"
+
+            # Screenshot - Saving to file
             "$mainMod SHIFT, S, exec, hyprshot -z -m region -o $SCREENSHOTS"
+            # Screenshot - Copying to clipboard only
+            "$mainMod CTRL, S, exec, hyprshot -z -m region --clipboard-only "
 
             # OCR Screenshot
             "$mainMod SHIFT, O, exec, fish -c hypr-ocr"
