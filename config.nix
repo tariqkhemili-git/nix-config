@@ -48,6 +48,8 @@
         "usbhid"
         "usb_storage"
         "sd_mod"
+        "tpm_tis"
+        "tpm_crb"
       ];
       kernelModules = [
         "nvidia"
@@ -297,6 +299,9 @@
           enableGnomeKeyring = true;
         };
       };
+    };
+    tpm2 = {
+      enable = true;
     };
   };
   # ----------------
