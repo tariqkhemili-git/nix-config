@@ -804,6 +804,10 @@
             "ignore_alpha 0.2, match:namespace ^(wlogout)$"
             "match:namespace ^(rofi)$, blur on"
             "match:namespace ^(rofi)$, ignore_alpha 0.2"
+            "blur on, match:namespace ^(swaync-control-center)$"
+            "ignore_alpha 0.2, match:namespace ^(swaync-control-center)$"
+            "blur on, match:namespace ^(swaync-notification-window)$"
+            "ignore_alpha 0.2, match:namespace ^(swaync-notification-window)$"
           ];
 
           # --- Window Rules (Hyprland 0.54+) ---
@@ -1555,6 +1559,196 @@
         night = 3500;
       };
       gamma = "1.0";
+    };
+    swaync = {
+      enable = true;
+      settings = {
+        positionX = "right";
+        positionY = "top";
+        layer = "overlay";
+        control-center-layer = "top";
+        control-center-margin-top = 10;
+        control-center-margin-bottom = 10;
+        control-center-margin-right = 15;
+        control-center-margin-left = 15;
+        notification-2way-tz = true;
+        notification-drop-shadow = true;
+        notification-icon-size = 48;
+        notification-body-image-height = 160;
+        notification-body-image-width = 200;
+        control-center-width = 400;
+      };
+      style = ''
+        * {
+          font-family: "JetBrainsMono Nerd Font", FontAwesome, sans-serif;
+          font-weight: bold;
+        }
+
+        .control-center .notification-row:focus,
+        .control-center .notification-row:hover {
+          opacity: 1;
+          background: rgba(67, 121, 162, 0.3); /* Accent hover */
+        }
+
+        .notification-row {
+          outline: none;
+          margin: 0px;
+          padding: 0px;
+        }
+
+        .notification {
+          /* Frosted glass notification popups */
+          background: rgba(20, 25, 30, 0.65);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 24px;
+          margin: 10px 15px;
+          padding: 0; /* Removed outer padding to fix the nested box effect */
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+          transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .notification:hover {
+          background: rgba(67, 121, 162, 0.3); /* Whole pill illuminates with your accent colour */
+          border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .notification-content {
+          background: transparent;
+          padding: 20px 24px; /* Added generous breathing room for the text */
+          border-radius: 24px;
+        }
+
+        .close-button {
+          background: rgba(255, 255, 255, 0.1);
+          color: #ffffff;
+          text-shadow: none;
+          padding: 0;
+          border-radius: 50%;
+          /* Explicitly push the button inwards so it doesn't clip the rounded border */
+          margin-top: 14px;
+          margin-right: 14px;
+          box-shadow: none;
+          border: none;
+          min-width: 24px;
+          min-height: 24px;
+        }
+
+        .close-button:hover {
+          box-shadow: none;
+          background: #f53c3c;
+          transition: all 0.2s ease-in-out;
+          border: none;
+        }
+
+        .notification-default-action,
+        .notification-action {
+          padding: 4px;
+          margin: 0;
+          box-shadow: none;
+          background: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          color: #e0e0e0;
+          transition: all 0.2s ease-in-out;
+        }
+
+        .notification-default-action:hover,
+        .notification-action:hover {
+          -gtk-icon-effect: none;
+          background: rgba(67, 121, 162, 0.5); 
+        }
+
+        .notification-default-action {
+          border-radius: 24px;
+        }
+
+        .notification-default-action:not(:only-child) {
+          border-bottom-left-radius: 0px;
+          border-bottom-right-radius: 0px;
+        }
+
+        .notification-action {
+          border-radius: 0px;
+          border-top: none;
+          border-right: none;
+        }
+
+        .notification-action:first-child {
+          border-bottom-left-radius: 24px;
+        }
+
+        .notification-action:last-child {
+          border-bottom-right-radius: 24px;
+          border-right: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .image {
+          border-radius: 12px;
+          margin-right: 16px; /* Space between images (like album art) and text */
+        }
+
+        .summary {
+          font-size: 15px; 
+          font-weight: bold;
+          background: transparent;
+          color: #ffffff;
+          text-shadow: none;
+          /* Prevents the top of the font from being sliced off */
+          padding-top: 4px; 
+          margin-bottom: 6px; 
+        }
+
+        .body {
+          font-size: 13px;
+          font-weight: normal;
+          background: transparent;
+          color: rgba(255, 255, 255, 0.8);
+          text-shadow: none;
+        }
+
+        /* Control Center Panel */
+        .control-center {
+          background: rgba(20, 25, 30, 0.75);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 24px;
+          color: #ffffff;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .control-center-list {
+          background: transparent;
+        }
+
+        .control-center-list-placeholder {
+          opacity: 0.5;
+        }
+
+        .control-center-list-empty {
+          opacity: 0.5;
+          color: #ffffff;
+        }
+
+        .widget-title {
+          color: #ffffff;
+          background: transparent;
+          padding: 10px;
+          font-size: 18px;
+          font-weight: bold;
+        }
+
+        .widget-title > button {
+          font-size: 14px;
+          color: #e0e0e0;
+          text-shadow: none;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: none;
+          border-radius: 16px;
+        }
+
+        .widget-title > button:hover {
+          background: rgba(67, 121, 162, 0.5); /* Accent hover */
+        }
+      '';
     };
   };
 }
