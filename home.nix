@@ -145,6 +145,8 @@
       gnome-keyring
       seahorse
       keepassxc
+
+      localsend
       # -----------------
       # --- Functions ---
       # -----------------
