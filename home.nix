@@ -139,6 +139,7 @@
       kdePackages.kdegraphics-thumbnailers # Image/Video thumbnails
       kdePackages.kio-fuse # Mounting support for Dolphin
       kdePackages.dolphin-plugins # Git integration for Dolphin
+      kdePackages.ark
 
       # --- Security ---
       libsecret
