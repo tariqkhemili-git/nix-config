@@ -227,13 +227,20 @@
       "1.1.1.1"
       "1.0.0.1"
     ];
-    # Firewall Configuration [cite: 16]
+    # Firewall Configuration
     firewall = {
       enable = true;
       # Syncthing ports: 22000 (TCP/UDP) for sync, 21027 (UDP) for discovery
-      # Only allow these if you are syncing with your Pixel 10 Pro (GrapheneOS)
-      # allowedTCPPorts = [ 22000 ];
-      # allowedUDPPorts = [ 22000 21027 ];
+      # LocalSend ports: 53317 (TCP/UDP) for transfers and discovery
+      allowedTCPPorts = [
+        22000
+        53317
+      ];
+      allowedUDPPorts = [
+        22000
+        21027
+        53317
+      ];
     };
   };
   # -----------
