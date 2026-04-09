@@ -534,6 +534,24 @@
       config.common.default = [ "hyprland" ];
     };
     configFile."quickshell/HyprQuickFrame".source = inputs.HyprQuickFrame;
+    xdg.configFile."hyprquickframe/theme.toml".text = ''
+      # Customised for light's slate/blue theme [cite: 99, 107]
+      [colors]
+      accent = "#87b2d4" 
+      background = "#1e2326ee" # Matches your Foot terminal background [cite: 178]
+    '';
+    xdg.configFile."satty/config.toml".text = ''
+      [general]
+      fullscreen = true
+      early-exit = true # Close Satty once you've copied/saved
+      initial-tool = "brush"
+      copy-command = "wl-copy" # Uses your existing wl-clipboard
+      output-filename = "/home/light/Pictures/Screenshots/satty-%Y%m%d-%H%M%S.png" # Follows your $SCREENSHOTS variable [cite: 3]
+      save-after-copy = false # Keeps your disk clean unless you explicitly save
+
+      [font]
+      family = "JetBrainsMono Nerd Font" # Matches your system font [cite: 175, 253]
+    '';
     configFile."yt-dlp/soundcloud.conf".text = ''
       # --- STORAGE ---
       --paths "/home/light/Music"
@@ -820,6 +838,8 @@
             "ignore_alpha 0.2, match:namespace ^(swaync-control-center)$"
             "blur on, match:namespace ^(swaync-notification-window)$"
             "ignore_alpha 0.2, match:namespace ^(swaync-notification-window)$"
+            "blur, quickshell"
+            "ignorealpha 0.2, quickshell"
           ];
 
           # --- Window Rules (Hyprland 0.54+) ---
