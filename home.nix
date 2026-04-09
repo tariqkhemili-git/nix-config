@@ -533,49 +533,51 @@
       ];
       config.common.default = [ "hyprland" ];
     };
-    configFile."quickshell/HyprQuickFrame".source = inputs.HyprQuickFrame;
-    xdg.configFile."hyprquickframe/theme.toml".text = ''
-      # Customised for light's slate/blue theme [cite: 99, 107]
-      [colors]
-      accent = "#87b2d4" 
-      background = "#1e2326ee" # Matches your Foot terminal background [cite: 178]
-    '';
-    xdg.configFile."satty/config.toml".text = ''
-      [general]
-      fullscreen = true
-      early-exit = true # Close Satty once you've copied/saved
-      initial-tool = "brush"
-      copy-command = "wl-copy" # Uses your existing wl-clipboard
-      output-filename = "/home/light/Pictures/Screenshots/satty-%Y%m%d-%H%M%S.png" # Follows your $SCREENSHOTS variable [cite: 3]
-      save-after-copy = false # Keeps your disk clean unless you explicitly save
+    configFile = {
+      "quickshell/HyprQuickFrame".source = inputs.HyprQuickFrame;
+      "hyprquickframe/theme.toml".text = ''
+        # Customised for light's slate/blue theme 
+        [colors]
+        accent = "#87b2d4" 
+        background = "#1e2326ee"
+      '';
+      "satty/config.toml".text = ''
+        [general]
+        fullscreen = true
+        early-exit = true
+        initial-tool = "brush"
+        copy-command = "wl-copy"
+        output-filename = "/home/light/Pictures/Screenshots/satty-%Y%m%d-%H%M%S.png"
+        save-after-copy = false
 
-      [font]
-      family = "JetBrainsMono Nerd Font" # Matches your system font [cite: 175, 253]
-    '';
-    configFile."yt-dlp/soundcloud.conf".text = ''
-      # --- STORAGE ---
-      --paths "/home/light/Music"
-      --output "%(uploader)s/%(title)s.%(ext)s"
+        [font]
+        family = "JetBrainsMono Nerd Font"
+      '';
+      "yt-dlp/soundcloud.conf".text = ''
+        # --- STORAGE ---
+        --paths "/home/light/Music"
+        --output "%(uploader)s/%(title)s.%(ext)s"
 
-      # --- AUDIO QUALITY ---
-      --extract-audio
-      --audio-format mp3
-      --audio-quality 0
+        # --- AUDIO QUALITY ---
+        --extract-audio
+        --audio-format mp3
+        --audio-quality 0
 
-      # --- METADATA & VISUALS ---
-      --embed-metadata
-      --embed-thumbnail
+        # --- METADATA & VISUALS ---
+        --embed-metadata
+        --embed-thumbnail
 
-      # --- SYSTEM & SYNC ---
-      --mtime
-      --ignore-errors
+        # --- SYSTEM & SYNC ---
+        --mtime
+        --ignore-errors
 
-      # --- PERFORMANCE (NATIVE) ---
-      --concurrent-fragments 16
+        # --- PERFORMANCE (NATIVE) ---
+        --concurrent-fragments 16
 
-      # --- ANTI-BLOCKING ---
-      --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-    '';
+        # --- ANTI-BLOCKING ---
+        --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+      '';
+    };
   };
   # ----------------
   # --- Hyprland ---
