@@ -840,8 +840,8 @@
             "ignore_alpha 0.2, match:namespace ^(swaync-control-center)$"
             "blur on, match:namespace ^(swaync-notification-window)$"
             "ignore_alpha 0.2, match:namespace ^(swaync-notification-window)$"
-            "blur, quickshell"
-            "ignorealpha 0.2, quickshell"
+            "blur on, match:namespace ^(quickshell)$"
+            "ignore_alpha 0.2, match:namespace ^(quickshell)$"
           ];
 
           # --- Window Rules (Hyprland 0.54+) ---
