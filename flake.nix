@@ -30,6 +30,10 @@
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
     };
+    HyprQuickFrame = {
+      url = "github:Ronin-CK/HyprQuickFrame";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

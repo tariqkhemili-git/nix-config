@@ -86,10 +86,11 @@
       cliphist # Clipboard history management
       libnotify # Notification library
       wlogout # Logout menu
-      hyprquickframe # For the modern UI
-      satty # For annotations
-      grim # Backend for screen grabbing
-      slurp # Backend for region selection
+      inputs.HyprQuickFrame.packages.${pkgs.stdenv.hostPlatform.system}.default
+      satty # Modern annotation and redaction tool
+      grim # Screen capture backend
+      imagemagick # Image processing required by HyprQuickFrame
+      quickshell # The shell backend powering the UI
       hyprpicker # Colour picker
       wl-clipboard # Wayland clipboard utilities
 
@@ -767,9 +768,7 @@
             "$mainMod SHIFT, C, exec, hyprpicker -a"
 
             # Screenshot - Saving to file
-            "$mainMod SHIFT, S, exec, hyprshot -z -m region -o $SCREENSHOTS"
-            # Screenshot - Copying to clipboard only
-            "$mainMod CTRL, S, exec, hyprshot -z -m region --clipboard-only "
+            "$mainMod SHIFT, S, exec, quickshell -c HyprQuickFrame -n"
 
             # OCR Screenshot
             "$mainMod SHIFT, O, exec, fish -c hypr-ocr"
