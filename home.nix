@@ -86,7 +86,10 @@
       cliphist # Clipboard history management
       libnotify # Notification library
       wlogout # Logout menu
-      hyprshot # Screenshot utility
+      hyprquickframe # For the modern UI
+      satty # For annotations
+      grim # Backend for screen grabbing
+      slurp # Backend for region selection
       hyprpicker # Colour picker
       wl-clipboard # Wayland clipboard utilities
 
