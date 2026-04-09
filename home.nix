@@ -533,6 +533,7 @@
       ];
       config.common.default = [ "hyprland" ];
     };
+    configFile."quickshell/HyprQuickFrame".source = inputs.HyprQuickFrame;
     configFile."yt-dlp/soundcloud.conf".text = ''
       # --- STORAGE ---
       --paths "/home/light/Music"
