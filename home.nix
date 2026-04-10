@@ -489,6 +489,30 @@
             ;;
         esac
       '')
+      # gpu-waybar
+      (pkgs.writeShellScriptBin "gpu-waybar" ''
+                # Use the system's active nvidia-smi to prevent NVML version mismatches
+                STATS=$(/run/current-system/sw/bin/nvidia-smi --query-gpu=utilization.gpu,temperature.gpu,memory.used,power.draw --format=csv,noheader,nounits 2>/dev/null)
+                
+                # Safety fallback if the GPU is asleep or errors out
+                if [ $? -ne 0 ] || [ -z "$STATS" ]; then
+                  ${pkgs.jq}/bin/jq -n -c '{text: "---", tooltip: "GPU asleep or NVML error"}'
+                  exit 0
+                fi
+
+                UTIL=$(echo "$STATS" | ${pkgs.gawk}/bin/awk -F', ' '{print $1}')
+                TEMP=$(echo "$STATS" | ${pkgs.gawk}/bin/awk -F', ' '{print $2}')
+                VRAM=$(echo "$STATS" | ${pkgs.gawk}/bin/awk -F', ' '{print $3}')
+                POWER=$(echo "$STATS" | ${pkgs.gawk}/bin/awk -F', ' '{print $4}')
+
+                # Build JSON for Waybar
+                ${pkgs.jq}/bin/jq -n -c \
+                  --arg text "$UTIL" \
+                  --arg tooltip "Temperature: $TEMP°C
+        VRAM: $VRAM MB
+        Power: $POWER W" \
+                  '{text: $text, tooltip: $tooltip}'
+      '')
     ];
     pointerCursor = {
       gtk.enable = true;
@@ -1100,6 +1124,9 @@
             "clock"
           ];
           modules-right = [
+            "cpu"
+            "memory"
+            "custom/gpu"
             "mpd"
             "pulseaudio"
             "bluetooth"
@@ -1108,6 +1135,29 @@
             "tray"
             "custom/power"
           ];
+
+          "cpu" = {
+            format = "   {usage}%";
+            interval = 2;
+            tooltip = true;
+            on-click = "foot -e btop";
+          };
+
+          "memory" = {
+            format = "   {}%";
+            interval = 2;
+            tooltip-format = "RAM: {used:0.1f}GB / {total:0.1f}GB";
+            on-click = "foot -e btop";
+          };
+
+          "custom/gpu" = {
+            exec = "gpu-waybar";
+            return-type = "json";
+            format = "󰢮   {}%";
+            interval = 2;
+            tooltip = true;
+            on-click = "foot -e btop";
+          };
 
           "custom/logo" = {
             format = " ";
@@ -1342,7 +1392,7 @@
             color: #ffffff;
         }
 
-        #pulseaudio, #network, #backlight, #bluetooth, #mpd, #tray {
+        #pulseaudio, #network, #backlight, #bluetooth, #mpd, #tray, #cpu, #memory, #custom-gpu {
             color: #e0e0e0;
         }
 
