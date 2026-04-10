@@ -15,7 +15,6 @@
     homeDirectory = "/home/light";
     stateVersion = "25.11";
     sessionVariables = {
-      GTK_THEME = "Adwaita:dark";
       SCREENSHOTS = "${config.home.homeDirectory}/Pictures/Screenshots";
       PROJECTS = "${config.home.homeDirectory}/Documents/Projects";
       WALLPAPERS = "${config.home.homeDirectory}/Pictures/Wallpapers";
