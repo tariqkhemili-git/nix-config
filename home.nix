@@ -513,6 +513,47 @@
         Power: $POWER W" \
                   '{text: $text, tooltip: $tooltip}'
       '')
+      # --- Hardware Battery Alert ---
+      (pkgs.writeScriptBin "battery-alert" ''
+        #!/usr/bin/env fish
+
+        # Ensure our dependencies are in scope
+        set -x PATH ${
+          pkgs.lib.makeBinPath [
+            pkgs.headsetcontrol
+            pkgs.solaar
+            pkgs.jq
+            pkgs.libnotify
+            pkgs.coreutils
+          ]
+        } $PATH
+
+        # 1. SteelSeries Check (Arctis Nova 5 & potentially Aerox 9)
+        # -c returns just the integer, ignoring the stdout fluff
+        set hs_batt (headsetcontrol -b -c 2>/dev/null)
+
+        if string match -qr '^[0-9]+$' -- "$hs_batt"
+            if test "$hs_batt" -le 5
+                notify-send -u critical -i battery-caution "SteelSeries Low" "Device is at $hs_batt%!"
+            end
+        end
+
+        # 2. Logitech Check (MX Vertical)
+        # Solaar exports clean JSON. We use jq to isolate devices with battery data.
+        set solaar_data (solaar show --json 2>/dev/null | jq -c '.[] | select(.battery != null)')
+
+        for device in $solaar_data
+            set name (echo $device | jq -r '.name')
+            set batt (echo $device | jq -r '.battery.level // .battery.percentage')
+            set is_charging (echo $device | jq -r '.battery.charging')
+
+            if string match -qr '^[0-9]+$' -- "$batt"
+                if test "$batt" -le 5; and test "$is_charging" != "true"
+                    notify-send -u critical -i battery-caution "Logitech Low" "$name is at $batt%!"
+                end
+            end
+        end
+      '')
     ];
     pointerCursor = {
       gtk.enable = true;
@@ -1119,14 +1160,15 @@
             "sway/mode"
             "sway/scratchpad"
             "custom/media"
+            "cpu"
+            "memory"
+            "custom/gpu"
           ];
           modules-center = [
             "clock"
           ];
           modules-right = [
-            "cpu"
-            "memory"
-            "custom/gpu"
+
             "mpd"
             "pulseaudio"
             "bluetooth"
@@ -1822,6 +1864,21 @@
           background: rgba(67, 121, 162, 0.5); /* Accent hover */
         }
       '';
+    };
+  };
+  systemd.user.services.battery-monitor = {
+    Unit = {
+      Description = "Wireless device battery monitor (Solaar & HeadsetControl)";
+      After = [ "graphical-session.target" ];
+    };
+
+    Service = {
+      ExecStart = "${pkgs.fish}/bin/fish -c 'while true; battery-alert; sleep 300; end'";
+      Restart = "on-failure";
+    };
+
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
     };
   };
 }
