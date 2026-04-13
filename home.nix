@@ -101,7 +101,6 @@
 
       # --- Web Browsers & Communication ---
       zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default # Primary Browser
-      librewolf # Privacy-focused Firefox fork
       chromium # Chromium browser
       session-desktop # Privacy-focused messenger
       element-desktop # Official Matrix client
