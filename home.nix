@@ -946,9 +946,9 @@
             # The Equibop Fix: Matches both the generic electron class AND the title
             "workspace special:equibop silent, match:class ^(electron)$, match:title .*(Discord|Equibop).*"
 
-            "float on, match:class ^(pavucontrol)$"
-            "center 1, match:class ^(pavucontrol)$" # Added the '1' to satisfy the parser
-            "size 700 500, match:class ^(pavucontrol)$" # Optional: Set a consistent default size
+            "float on, match:class ^(org.pulseaudio.pavucontrol)$"
+            "center 1, match:class ^(org.pulseaudio.pavucontrol)$" # Added the '1' to satisfy the parser
+            "size 700 500, match:class ^(org.pulseaudio.pavucontrol)$" # Optional: Set a consistent default size
           ];
           workspace = [
             "1, monitor:DP-3, default:true"
