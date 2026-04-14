@@ -558,7 +558,8 @@
         if pgrep -x "rofi" > /dev/null; then
             pkill -x "rofi"
         else
-            rofi -show drun
+            # Pass the calc-command natively as a CLI flag
+            rofi -show drun -calc-command "echo -n '{result}' | wl-copy"
         fi
       '')
     ];
@@ -1592,75 +1593,84 @@
         display-run = "   Run ";
         display-window = "   Window ";
         display-calc = " 󰪚  Calculator ";
+        calc-command = "echo -n '{result}' | wl-copy";
       };
       theme =
         let
           inherit (config.lib.formats.rasi) mkLiteral;
         in
         {
-          "calc" = {
-            no-history = false;
-            parse-action = mkLiteral "wl-copy";
-          };
           "*" = {
             background-color = mkLiteral "transparent";
-            text-color = mkLiteral "#ffffff";
             font = "JetBrainsMono Nerd Font 14";
-          };
-          "window" = {
-            width = mkLiteral "40%";
-            background-color = mkLiteral "rgba(20, 25, 30, 0.55)";
-            border = mkLiteral "1px";
-            border-color = mkLiteral "rgba(255, 255, 255, 0.08)";
-            border-radius = mkLiteral "24px";
-            padding = mkLiteral "20px";
-          };
-          "mainbox" = {
-            spacing = mkLiteral "15px";
-          };
-          "inputbar" = {
-            background-color = mkLiteral "rgba(20, 25, 30, 0.75)";
-            border = mkLiteral "1px";
-            border-color = mkLiteral "rgba(255, 255, 255, 0.08)";
-            border-radius = mkLiteral "16px";
-            padding = mkLiteral "12px 16px";
-            spacing = mkLiteral "12px";
-            children = mkLiteral "[ prompt, entry ]";
-          };
-          "prompt" = {
-            text-color = mkLiteral "#4379a2";
-          };
-          "entry" = {
-            placeholder = "Search applications...";
-            placeholder-color = mkLiteral "rgba(255, 255, 255, 0.4)";
             text-color = mkLiteral "#ffffff";
           };
+
+          "window" = {
+            background-color = mkLiteral "rgba(20, 25, 30, 55%)";
+            border = mkLiteral "1";
+            border-color = mkLiteral "rgba(255, 255, 255, 8%)";
+            border-radius = mkLiteral "24";
+            padding = mkLiteral "20";
+            width = mkLiteral "40%";
+            # --- THE FIX: Fixed height prevents the window from changing size ---
+            height = mkLiteral "500";
+          };
+
+          "mainbox" = {
+            spacing = mkLiteral "15";
+          };
+
+          "inputbar" = {
+            background-color = mkLiteral "rgba(20, 25, 30, 75%)";
+            border = mkLiteral "1";
+            border-color = mkLiteral "rgba(255, 255, 255, 8%)";
+            border-radius = mkLiteral "16";
+            children = mkLiteral "[ prompt, entry ]";
+            padding = mkLiteral "12 16";
+            spacing = mkLiteral "12";
+          };
+
           "listview" = {
             columns = 2;
-            lines = 8;
-            spacing = mkLiteral "8px";
-            fixed-height = true;
             fixed-columns = true;
+            # Ensure the listview always takes up the full space
+            fixed-height = true;
+            lines = 8;
+            spacing = mkLiteral "8";
           };
+
           "element" = {
-            padding = mkLiteral "10px";
-            border-radius = mkLiteral "12px";
             background-color = mkLiteral "transparent";
+            border-radius = mkLiteral "12";
+            padding = mkLiteral "10";
             text-color = mkLiteral "#e0e0e0";
-            # transition removed entirely as RASI does not support it
           };
+
           "element normal.normal, element alternate.normal" = {
             background-color = mkLiteral "transparent";
           };
+
           "element selected.normal" = {
-            background-color = mkLiteral "rgba(67, 121, 162, 0.5)"; # Accent colour hover
-            border = mkLiteral "1px";
-            border-color = mkLiteral "rgba(255, 255, 255, 0.15)";
+            background-color = mkLiteral "rgba(67, 121, 162, 50%)";
+            border = mkLiteral "1";
+            border-color = mkLiteral "rgba(255, 255, 255, 15%)";
             text-color = mkLiteral "#ffffff";
           };
+
           "element-icon" = {
-            size = mkLiteral "24px";
-            margin = mkLiteral "0 10px 0 0";
+            margin = mkLiteral "0 10 0 0";
+            size = mkLiteral "24";
+          };
+
+          "entry" = {
+            placeholder = "Search applications...";
+            placeholder-color = mkLiteral "rgba(255, 255, 255, 40%)";
+            text-color = mkLiteral "#ffffff";
+          };
+
+          "prompt" = {
+            text-color = mkLiteral "#4379a2";
           };
         };
     };
