@@ -554,6 +554,14 @@
             end
         end
       '')
+      # toggle-rofi
+      (writeShellScriptBin "toggle-rofi" ''
+        if pgrep -x "rofi" > /dev/null; then
+            pkill -x "rofi"
+        else
+            rofi -show drun
+        fi
+      '')
     ];
     pointerCursor = {
       gtk.enable = true;
@@ -654,7 +662,7 @@
           "$mainMod" = "SUPER";
           "$terminal" = "foot";
           "$fileManager" = "dolphin";
-          "$menu" = "rofi -show drun";
+          "$menu" = "toggle-rofi";
           "$browser" = "zen-beta";
 
           general = {
@@ -985,13 +993,24 @@
       '';
 
       shellAbbrs = {
-        upd = "nh os switch -u ~/.nix";
-        gitupd = ''z ~/.nix && git add . && git commit -m "" && git push -u origin main && nh os switch -u ~/.nix'';
-        swi = "nh os switch ~/.nix";
-        gitswi = ''z ~/.nix && git add . && git commit -m "" && git push -u origin main && nh os switch ~/.nix'';
+        swi = ''sudo echo "Sudo access granted" && nh os switch ~/.nix'';
+        swis = ''sudo echo "Sudo access granted" && nh os switch ~/.nix && shutdown now'';
+        swir = ''sudo echo "Sudo access granted" && nh os switch ~/.nix && reboot'';
+        swifw = ''sudo echo "Sudo access granted" && nh os switch ~/.nix && systemctl reboot --firmware-setup'';
+        upd = ''sudo echo "Sudo access granted" && nh os switch -u ~/.nix'';
+        upds = ''sudo echo "Sudo access granted" && nh os switch -u ~/.nix && shutdown now'';
+        updr = ''sudo echo "Sudo access granted" && nh os switch -u ~/.nix && reboot'';
+        updfw = ''sudo echo "Sudo access granted" && nh os switch -u ~/.nix && systemctl reboot --firmware-setup'';
+        gitswi = ''z ~/.nix && sudo echo "Sudo access granted" && nh os switch ~/.nix && git add . && git commit -m "" && git push -u origin main'';
+        gitswis = ''z ~/.nix && sudo echo "Sudo access granted" && nh os switch ~/.nix && git add . && git commit -m "" && git push -u origin main && shutdown now'';
+        gitswir = ''z ~/.nix && sudo echo "Sudo access granted" && nh os switch ~/.nix && git add . && git commit -m "" && git push -u origin main && reboot'';
+        gitswifw = ''z ~/.nix && sudo echo "Sudo access granted" && nh os switch ~/.nix && git add . && git commit -m "" && git push -u origin main && systemctl reboot --firmware-setup'';
+        gitupd = ''z ~/.nix && sudo echo "Sudo access granted" && nh os switch -u ~/.nix && git add . && git commit -m "" && git push -u origin main'';
+        gitupds = ''z ~/.nix && sudo echo "Sudo access granted" && nh os switch -u ~/.nix && git add . && git commit -m "" && git push -u origin main && shutdown now'';
+        gitupdr = ''z ~/.nix && sudo echo "Sudo access granted" && nh os switch -u ~/.nix && git add . && git commit -m "" && git push -u origin main && reboot'';
+        gitupdfw = ''z ~/.nix && sudo echo "Sudo access granted" && nh os switch -u ~/.nix && git add . && git commit -m "" && git push -u origin main && systemctl reboot --firmware-setup'';
         test = "nh os test ~/.nix";
         clean = "nh clean all";
-        nixconf = "z ~/.nix && micro";
         s = "sudo";
         e = "micro";
         cd = "z";
@@ -1005,8 +1024,8 @@
         cat = "bat";
         ls = "eza --icons --group-directories-first";
         ll = "eza -lh --icons --grid --group-directories-first --sort=modified";
-        unlock-vault = "gocryptfs ~/Documents/.vault_cipher ~/Documents/Vault";
-        lock-vault = "fusermount -u ~/Documents/Vault";
+        uv = "gocryptfs ~/Documents/.vault_cipher ~/Documents/Vault";
+        lv = "fusermount -u ~/Documents/Vault";
       };
     };
     foot = {
