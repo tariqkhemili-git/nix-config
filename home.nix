@@ -948,7 +948,7 @@
 
             "float on, match:class ^(org.pulseaudio.pavucontrol)$"
             "center 1, match:class ^(org.pulseaudio.pavucontrol)$" # Added the '1' to satisfy the parser
-            "size 700 500, match:class ^(org.pulseaudio.pavucontrol)$" # Optional: Set a consistent default size
+            "size 1800 900, match:class ^(org.pulseaudio.pavucontrol)$" # Optional: Set a consistent default size
           ];
           workspace = [
             "1, monitor:DP-3, default:true"
