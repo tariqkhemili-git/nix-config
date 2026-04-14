@@ -81,7 +81,6 @@
       # --- Hyprland Desktop Environment ---
       waybar # Status bar
       swaynotificationcenter # Notification daemon
-      rofi # Application launcher
       cliphist # Clipboard history management
       libnotify # Notification library
       wlogout # Logout menu
@@ -1579,9 +1578,11 @@
     };
     rofi = {
       enable = true;
-      package = pkgs.rofi;
+      package = pkgs.rofi.override {
+        plugins = [ pkgs.rofi-calc ];
+      };
       extraConfig = {
-        modi = "drun,run,window";
+        modi = "drun,run,window,calc";
         show-icons = true;
         terminal = "foot";
         drun-display-format = "{icon} {name}";
@@ -1590,12 +1591,17 @@
         display-drun = "   Apps ";
         display-run = "   Run ";
         display-window = "   Window ";
+        display-calc = " 󰪚  Calculator ";
       };
       theme =
         let
           inherit (config.lib.formats.rasi) mkLiteral;
         in
         {
+          "calc" = {
+            no-history = false;
+            parse-action = mkLiteral "wl-copy";
+          };
           "*" = {
             background-color = mkLiteral "transparent";
             text-color = mkLiteral "#ffffff";
