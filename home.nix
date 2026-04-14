@@ -555,12 +555,40 @@
       '')
       # toggle-rofi
       (writeShellScriptBin "toggle-rofi" ''
+        # Find which monitor the mouse is currently focused on
+        FOCUSED_MONITOR=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .name')
+
+        # Find which monitor Rofi is currently drawn on (via layer-shell)
+        ROFI_MONITOR=$(hyprctl layers -j | jq -r 'to_entries[] | .key as $mon | .value.levels[] | .[] | select(.namespace == "rofi") | $mon' | head -n 1)
+
         if pgrep -x "rofi" > /dev/null; then
             pkill -x "rofi"
+            
+            # If the user's mouse is on a different monitor, respawn Rofi there
+            if [ "$FOCUSED_MONITOR" != "$ROFI_MONITOR" ] && [ -n "$ROFI_MONITOR" ]; then
+                sleep 0.15 # Brief pause to allow the Wayland socket to cleanly release
+                rofi -show drun -calc-command "echo -n '{result}' | wl-copy"
+            fi
         else
-            # Pass the calc-command natively as a CLI flag
             rofi -show drun -calc-command "echo -n '{result}' | wl-copy"
         fi
+      '')
+      # toggle-clipboard
+      (writeShellScriptBin "toggle-clipboard" ''
+        if pgrep -x "rofi" > /dev/null; then
+            # Check if the currently running Rofi is already the clipboard (dmenu mode)
+            if ps -C rofi -o args= | grep -q "dmenu"; then
+                pkill -x "rofi"
+                exit 0
+            else
+                # It's the app launcher. Kill it and yield the socket.
+                pkill -x "rofi"
+                sleep 0.15
+            fi
+        fi
+
+        # Launch the clipboard
+        cliphist list | rofi -dmenu | cliphist decode | wl-copy
       '')
     ];
     pointerCursor = {
@@ -857,7 +885,7 @@
             "$mainMod SHIFT, O, exec, fish -c hypr-ocr"
 
             # Clipboard
-            "$mainMod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
+            "$mainMod, V, exec, toggle-clipboard"
           ];
 
           bindm = [
@@ -917,6 +945,10 @@
 
             # The Equibop Fix: Matches both the generic electron class AND the title
             "workspace special:equibop silent, match:class ^(electron)$, match:title .*(Discord|Equibop).*"
+
+            "float on, match:class ^(pavucontrol)$"
+            "size 700 500, match:class ^(pavucontrol)$" # Optional: Set a consistent default size
+            "center, match:class ^(pavucontrol)$" # Optional: Keep it centered on launch
           ];
           workspace = [
             "1, monitor:DP-3, default:true"
