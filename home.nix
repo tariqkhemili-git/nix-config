@@ -879,7 +879,8 @@
             "$mainMod SHIFT, C, exec, hyprpicker -a"
 
             # Screenshot - Saving to file
-            "$mainMod SHIFT, S, exec, quickshell -c HyprQuickFrame -n"
+            # Updated screenshot bind to prevent "already running" errors
+            "$mainMod SHIFT, S, exec, pkill -f HyprQuickFrame; quickshell -c HyprQuickFrame -n"
 
             # OCR Screenshot
             "$mainMod SHIFT, O, exec, fish -c hypr-ocr"
