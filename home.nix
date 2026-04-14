@@ -947,8 +947,8 @@
             "workspace special:equibop silent, match:class ^(electron)$, match:title .*(Discord|Equibop).*"
 
             "float on, match:class ^(pavucontrol)$"
+            "center 1, match:class ^(pavucontrol)$" # Added the '1' to satisfy the parser
             "size 700 500, match:class ^(pavucontrol)$" # Optional: Set a consistent default size
-            "center, match:class ^(pavucontrol)$" # Optional: Keep it centered on launch
           ];
           workspace = [
             "1, monitor:DP-3, default:true"
