@@ -590,6 +590,14 @@
         # Launch the clipboard
         cliphist list | rofi -dmenu | cliphist decode | wl-copy
       '')
+      # hypr-screenshot
+      (writeShellScriptBin "hypr-screenshot" ''
+        # Force kill any hanging instances to release the Wayland socket
+        ${pkgs.procps}/bin/pkill -f HyprQuickFrame || true
+
+        # Launch a fresh instance
+        ${pkgs.quickshell}/bin/quickshell -c HyprQuickFrame -n
+      '')
     ];
     pointerCursor = {
       gtk.enable = true;
@@ -818,6 +826,9 @@
 
             # --- Wallpaper Engine ---
             "linux-wallpaperengine --silent --scaling fill --fps 60 --screen-root DP-3 --bg 3341326865 --screen-root HDMI-A-1 --bg 3449595825 --set-property newproperty3=\"0.52 0.69 0.83\""
+
+            "equibop"
+            "spotify"
           ];
           bind = [
             "$mainMod, Q, killactive,"
@@ -879,8 +890,7 @@
             "$mainMod SHIFT, C, exec, hyprpicker -a"
 
             # Screenshot - Saving to file
-            # Updated screenshot bind to prevent "already running" errors
-            "$mainMod SHIFT, S, exec, pkill -f HyprQuickFrame; quickshell -c HyprQuickFrame -n"
+            "$mainMod SHIFT, S, exec, hypr-screenshot"
 
             # OCR Screenshot
             "$mainMod SHIFT, O, exec, fish -c hypr-ocr"
