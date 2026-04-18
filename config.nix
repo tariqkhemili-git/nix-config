@@ -154,7 +154,15 @@
   # --- Fonts ---
   # -------------
   fonts = {
-    fontconfig.enable = true;
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        sansSerif = [ "Atkinson Hyperlegible Next" ];
+        serif = [ "Atkinson Hyperlegible Next" ];
+        # Keep JetBrains Mono for your terminal/code needs
+        monospace = [ "JetBrainsMono Nerd Font" ];
+      };
+    };
     packages = with pkgs; [
       atkinson-hyperlegible-next
       nerd-fonts.jetbrains-mono

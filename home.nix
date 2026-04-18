@@ -44,8 +44,9 @@
       XDG_SESSION_DESKTOP = "Hyprland";
       XDG_DESKTOP_PORTAL_HYPRLAND_FORCE_SHM = "1"; # Nuclear fix for EIO error
 
-      PYTHON_KEYRING_BACKEND = "keyring.backends.libsecret.Keyring";
-      ELECTRON_ARGS = "--password-store=gnome-libsecret";
+      # --- Modified for convenience ---
+      PYTHON_KEYRING_BACKEND = "keyring.backends.null.Keyring";
+      ELECTRON_ARGS = "--password-store=basic";
     };
     packages = with pkgs; [
       # --- Terminal & Core Utilities ---
@@ -101,11 +102,7 @@
       # --- Web Browsers & Communication ---
       zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default # Primary Browser
       chromium # Chromium browser
-      session-desktop # Privacy-focused messenger
-      element-desktop # Official Matrix client
-      nheko # Fast Matrix client
       keet # P2P chat
-      jami # P2P chat
       tg # Privacy messenger
       equibop # Discord chat client
 
@@ -828,7 +825,7 @@
             "linux-wallpaperengine --silent --scaling fill --fps 60 --screen-root DP-3 --bg 3341326865 --screen-root HDMI-A-1 --bg 3449595825 --set-property newproperty3=\"0.52 0.69 0.83\""
 
             "equibop"
-            "spotify"
+            "spotify --password-store=basic"
           ];
           bind = [
             "$mainMod, Q, killactive,"
@@ -1731,6 +1728,10 @@
     theme = {
       name = "Adwaita-dark";
       package = pkgs.gnome-themes-extra;
+    };
+    font = {
+      name = "Atkinson Hyperlegible Next";
+      size = 11;
     };
     cursorTheme = {
       package = pkgs.bibata-cursors;
