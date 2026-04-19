@@ -1049,7 +1049,7 @@
         gitupds = ''z ~/.nix && sudo echo "Sudo access granted" && nh os switch -u ~/.nix && git add . && git commit -m "" && git push -u origin main && shutdown now'';
         gitupdr = ''z ~/.nix && sudo echo "Sudo access granted" && nh os switch -u ~/.nix && git add . && git commit -m "" && git push -u origin main && reboot'';
         gitupdfw = ''z ~/.nix && sudo echo "Sudo access granted" && nh os switch -u ~/.nix && git add . && git commit -m "" && git push -u origin main && systemctl reboot --firmware-setup'';
-        git = "z ~/.nix && git add . && git commit -m \"\" && git push -u origin main";
+        nixgit = "z ~/.nix && git add . && git commit -m \"\" && git push -u origin main";
         test = "nh os test ~/.nix";
         clean = "nh clean all";
         s = "sudo";
