@@ -147,6 +147,11 @@
       keepassxc
 
       localsend
+
+      # --- Gaming ---
+      gamemode
+      gamescope
+      mangohud
       # -----------------
       # --- Functions ---
       # -----------------
