@@ -1635,6 +1635,7 @@
         display-window = "   Window ";
         display-calc = " 󰪚  Calculator ";
         calc-command = "echo -n '{result}' | wl-copy";
+        click-to-exit = true;
       };
       theme =
         let
