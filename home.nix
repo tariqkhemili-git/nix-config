@@ -136,9 +136,11 @@
       kdePackages.qtsvg # SVG support for KDE apps
       kdePackages.kio-extras # Network/SFTP support for Dolphin
       kdePackages.kdegraphics-thumbnailers # Image/Video thumbnails
+      kdePackages.ffmpegthumbs # Specific thumbnailer for video files
+      kdePackages.kfind # The "KFinder" search utility
       kdePackages.kio-fuse # Mounting support for Dolphin
       kdePackages.dolphin-plugins # Git integration for Dolphin
-      kdePackages.ark
+      kdePackages.ark # Archive manager that integrates with Dolphin
 
       # --- Security ---
       libsecret
@@ -147,6 +149,7 @@
       keepassxc
 
       localsend
+      wireshark
       # -----------------
       # --- Functions ---
       # -----------------
