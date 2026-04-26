@@ -296,6 +296,9 @@
         enable = true;
       };
     };
+    wireshark = {
+      enable = true;
+    };
   };
 
   # ----------------
