@@ -167,6 +167,7 @@
       atkinson-hyperlegible-next
       nerd-fonts.jetbrains-mono
       font-awesome
+      (google-fonts.override { fonts = [ "Story Script" ]; })
     ];
   };
   # ----------------

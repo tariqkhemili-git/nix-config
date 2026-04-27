@@ -1768,22 +1768,32 @@
         ];
 
         label = [
+          # 1. The Lock Icon
           {
-            # The "Locked" text
-            text = "LOCKED";
+            text = "";
             color = "rgb(87b2d4)";
-            font_size = 64;
-            font_family = "Atkinson Hyperlegible Next";
+            font_size = 60;
+            font_family = "Font Awesome 6 Free Solid";
+            position = "0, 180";
+            halign = "center";
+            valign = "center";
+          }
+          # 2. Lowercase "locked" text in Story Script
+          {
+            text = "locked";
+            color = "rgb(87b2d4)";
+            font_size = 90;
+            font_family = "Story Script";
             position = "0, 80";
             halign = "center";
             valign = "center";
             shadow_passes = 2;
           }
+          # 3. Minimalist Clock
           {
-            # Subtle clock above the input
             text = "$TIME";
-            color = "rgba(255, 255, 255, 0.8)";
-            font_size = 20;
+            color = "rgba(211, 211, 211, 0.4)";
+            font_size = 16;
             font_family = "JetBrainsMono Nerd Font";
             position = "0, 20";
             halign = "center";
