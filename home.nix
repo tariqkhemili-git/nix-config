@@ -1770,13 +1770,15 @@
         label = [
           # 1. The Lock Icon
           {
-            text = "";
+            text = "  "; # Added spaces to prevent the right-side cut-off
             color = "rgb(87b2d4)";
-            font_size = 60;
+            font_size = 65;
+            # Ensure this matches exactly how Nix sees the font
             font_family = "Font Awesome 6 Free Solid";
-            position = "0, 180";
+            position = "0, 190"; # Slightly higher to give the text room
             halign = "center";
             valign = "center";
+            shadow_passes = 1;
           }
           # 2. Lowercase "locked" text in Story Script
           {
