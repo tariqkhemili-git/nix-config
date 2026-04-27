@@ -1768,34 +1768,25 @@
         ];
 
         label = [
-          # 1. The Lock Icon
-          {
-            text = "  "; # Added spaces to prevent the right-side cut-off
-            color = "rgb(87b2d4)";
-            font_size = 65;
-            # Ensure this matches exactly how Nix sees the font
-            font_family = "Font Awesome 6 Free Solid";
-            position = "0, 190"; # Slightly higher to give the text room
-            halign = "center";
-            valign = "center";
-            shadow_passes = 1;
-          }
-          # 2. Lowercase "locked" text in Story Script
+          # 2. Lowercase "locked"
           {
             text = "locked";
             color = "rgb(87b2d4)";
             font_size = 90;
-            font_family = "Story Script";
-            position = "0, 80";
+            font_family = "Satisfy";
+            position = "0, 85";
             halign = "center";
             valign = "center";
             shadow_passes = 2;
+            shadow_size = 20;
+            shadow_color = "rgba(0, 0, 0, 0.4)";
           }
+
           # 3. Minimalist Clock
           {
             text = "$TIME";
             color = "rgba(211, 211, 211, 0.4)";
-            font_size = 16;
+            font_size = 18;
             font_family = "JetBrainsMono Nerd Font";
             position = "0, 20";
             halign = "center";
