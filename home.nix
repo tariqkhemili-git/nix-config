@@ -1719,6 +1719,76 @@
           };
         };
     };
+    hyprlock = {
+      enable = true;
+      settings = {
+        general = {
+          disable_loading = true;
+          hide_cursor = true;
+          grace = 0; # Immediate lock
+          no_fade_in = false;
+        };
+
+        background = [
+          {
+            path = "screenshot"; # Captures your current wallpaper/windows
+            color = "rgba(30, 35, 38, 1.0)";
+            blur_passes = 3; # High passes for that premium glass effect
+            blur_size = 8;
+            noise = 0.0117;
+            contrast = 0.8916;
+            brightness = 0.8172;
+            vibrancy = 0.1696;
+            vibrancy_darkness = 0.0;
+          }
+        ];
+
+        input-field = [
+          {
+            size = "250, 60";
+            outline_thickness = 2;
+            dots_size = 0.2;
+            dots_spacing = 0.2;
+            dots_center = true;
+            outer_color = "rgb(87b2d4)"; # Your accent colour
+            inner_color = "rgba(20, 25, 30, 0.55)"; # Dark slate glass
+            font_color = "rgb(211, 211, 211)";
+            fade_on_empty = false;
+            placeholder_text = "<i>Enter Password...</i>";
+            hide_input = false;
+            position = "0, -50";
+            halign = "center";
+            valign = "center";
+            check_color = "rgb(135, 178, 212)";
+            fail_color = "rgb(245, 60, 60)"; # Red for alerts
+          }
+        ];
+
+        label = [
+          {
+            # The "Locked" text
+            text = "LOCKED";
+            color = "rgb(87b2d4)";
+            font_size = 64;
+            font_family = "Atkinson Hyperlegible Next";
+            position = "0, 80";
+            halign = "center";
+            valign = "center";
+            shadow_passes = 2;
+          }
+          {
+            # Subtle clock above the input
+            text = "$TIME";
+            color = "rgba(255, 255, 255, 0.8)";
+            font_size = 20;
+            font_family = "JetBrainsMono Nerd Font";
+            position = "0, 20";
+            halign = "center";
+            valign = "center";
+          }
+        ];
+      };
+    };
   };
   dconf = {
     settings = {
@@ -1948,6 +2018,26 @@
           background: rgba(67, 121, 162, 0.5); /* Accent hover */
         }
       '';
+    };
+    hypridle = {
+      enable = true;
+      settings = {
+        general = {
+          # Ensures we don't start multiple instances
+          lock_cmd = "pidof hyprlock || hyprlock";
+          # Locks before the system hibernates/suspends (safety first)
+          before_sleep_cmd = "loginctl lock-session";
+          # Ensures the session is properly tracked
+          after_sleep_cmd = "hyprctl dispatch dpms on";
+        };
+
+        listener = [
+          {
+            timeout = 300; # 5 minutes
+            on-timeout = "loginctl lock-session";
+          }
+        ];
+      };
     };
   };
   systemd.user.services.battery-monitor = {
