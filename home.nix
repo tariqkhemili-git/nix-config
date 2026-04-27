@@ -1768,12 +1768,12 @@
         ];
 
         label = [
-          # 2. Lowercase "locked"
+          # 1. Lowercase "locked"
           {
             text = "locked";
             color = "rgb(87b2d4)";
             font_size = 90;
-            font_family = "Satisfy";
+            font_family = "Story Script";
             position = "0, 85";
             halign = "center";
             valign = "center";
@@ -1782,7 +1782,7 @@
             shadow_color = "rgba(0, 0, 0, 0.4)";
           }
 
-          # 3. Minimalist Clock
+          # 2. Minimalist Clock
           {
             text = "$TIME";
             color = "rgba(211, 211, 211, 0.4)";
