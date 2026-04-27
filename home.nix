@@ -897,6 +897,9 @@
 
             # Clipboard
             "$mainMod, V, exec, toggle-clipboard"
+
+            # Lock
+            "$mainMod, L, exec, loginctl lock-session"
           ];
 
           bindm = [
