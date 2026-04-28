@@ -598,6 +598,58 @@
         # Launch a fresh instance
         ${pkgs.quickshell}/bin/quickshell -c HyprQuickFrame -n
       '')
+      # --- Rofi File Finder (Optimised) ---
+      (pkgs.writeShellApplication {
+        name = "rofi-finder";
+
+        # Nix automatically builds the PATH from these inputs
+        runtimeInputs = with pkgs; [
+          fd
+          rofi
+          mpv
+          nomacs
+          foot
+          micro
+          xdg-utils
+        ];
+
+        text = ''
+          # -H includes hidden, -E excludes patterns. 
+          # Excluded Vault to maintain cryptographic privacy.
+          FILE=$(fd . "$HOME" --type f -H -E .git -E .cache -E "Documents/Vault" | rofi -dmenu -i -p "󰍉 Find File" -theme-str 'window {width: 60%;}')
+
+          if [ -z "$FILE" ]; then
+              exit 0
+          fi
+
+          # Safely check if an extension actually exists to prevent parsing errors
+          FILENAME=$(basename "$FILE")
+          if [[ "$FILENAME" == *.* ]]; then
+              EXTENSION="''${FILENAME##*.}"
+              EXT_LOWER="''${EXTENSION,,}"
+          else
+              EXT_LOWER="none"
+          fi
+
+          # 'exec' replaces the script process with the app, saving RAM
+          case "$EXT_LOWER" in
+              mp4|mov|mkv|webm)
+                  exec mpv "$FILE" ;;
+              jpg|jpeg|png|gif|svg|webp)
+                  exec nomacs "$FILE" ;;
+              txt|md|nix|conf|sh|fish)
+                  exec foot -e micro "$FILE" ;;
+              html|pdf)
+                  # Relies on the binary exposed globally by your Zen Flake
+                  exec zen-beta "$FILE" ;;
+              pka)
+                  # Relies on the globally installed cisco-packet-tracer binary
+                  exec packettracer9 "$FILE" ;;
+              *)
+                  exec xdg-open "$FILE" ;;
+          esac
+        '';
+      })
     ];
     pointerCursor = {
       gtk.enable = true;
@@ -900,6 +952,9 @@
 
             # Lock
             "$mainMod, L, exec, loginctl lock-session"
+
+            # Rofi Finder
+            "$mainMod SHIFT, F, exec, rofi-finder"
           ];
 
           bindm = [
